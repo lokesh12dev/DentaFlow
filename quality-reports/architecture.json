@@ -1,7 +1,7 @@
 {
   "audit": "architecture",
   "metrics": {
-    "route_count": 51,
+    "route_count": 65,
     "feature_files": 32,
     "repository_methods": 51,
     "edge_functions": 13,

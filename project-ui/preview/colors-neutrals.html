@@ -1,0 +1,41 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px; background: var(--bg-surface); font-family: var(--font-sans); color: var(--fg-1); }
+  h5 { margin: 0 0 12px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .col h6 { margin: 0 0 8px; font: 500 11px/1 var(--font-mono); color: var(--fg-4); letter-spacing: .04em; }
+  .row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .sw { border-radius: var(--r-2); overflow: hidden; box-shadow: var(--shadow-hair); }
+  .chip { height: 60px; }
+  .meta { padding: 6px 8px 8px; background: #fff; }
+  .name { font: 500 11px/1 var(--font-sans); }
+  .val { font: 500 10px/1 var(--font-mono); color: var(--fg-3); margin-top: 3px; }
+</style></head>
+<body>
+  <div class="grid">
+    <div class="col">
+      <h6>Paper — warm off-white bg</h6>
+      <div class="row">
+        <div class="sw"><div class="chip" style="background:var(--paper-50);border:1px solid var(--paper-300)"></div><div class="meta"><div class="name">50</div><div class="val">#FBF9F6</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--paper-100)"></div><div class="meta"><div class="name">100</div><div class="val">#F5F2EC</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--paper-200)"></div><div class="meta"><div class="name">200</div><div class="val">#EDE8DF</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--paper-300)"></div><div class="meta"><div class="name">300</div><div class="val">#E1DCD1</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--paper-400)"></div><div class="meta"><div class="name">400</div><div class="val">#CFC8BB</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--paper-500)"></div><div class="meta"><div class="name">500</div><div class="val">#AFA79A</div></div></div>
+      </div>
+    </div>
+    <div class="col">
+      <h6>Ink — warm charcoal, never #000</h6>
+      <div class="row">
+        <div class="sw"><div class="chip" style="background:var(--ink-400)"></div><div class="meta"><div class="name">400</div><div class="val">#B4B8C1</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--ink-500)"></div><div class="meta"><div class="name">500</div><div class="val">#8A8F9C</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--ink-600)"></div><div class="meta"><div class="name">600</div><div class="val">#5A6070</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--ink-700)"></div><div class="meta"><div class="name">700</div><div class="val">#363A42</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--ink-800)"></div><div class="meta"><div class="name">800</div><div class="val">#22252B</div></div></div>
+        <div class="sw"><div class="chip" style="background:var(--ink-900)"></div><div class="meta"><div class="name">900</div><div class="val">#14161A</div></div></div>
+      </div>
+    </div>
+  </div>
+</body></html>

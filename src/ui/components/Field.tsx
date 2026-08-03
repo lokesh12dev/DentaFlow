@@ -6,13 +6,14 @@ import { radii, sizes, spacing, typography, fonts } from '../tokens';
 import { useTheme } from '../ThemeProvider';
 import { AppText } from './Typography';
 
-export function Field({ label, value, onChangeText, placeholder, error, helper, icon: Icon, multiline = false, keyboardType, secureTextEntry, autoCapitalize, style, ...props }: Omit<TextInputProps, 'style'> & { label: string; value: string; onChangeText: (value: string) => void; placeholder?: string; error?: string; helper?: string; icon?: LucideIcon; multiline?: boolean; keyboardType?: KeyboardTypeOptions; secureTextEntry?: boolean; autoCapitalize?: TextInputProps['autoCapitalize']; style?: StyleProp<ViewStyle> }) {
+export function Field({ label, value, onChangeText, placeholder, error, helper, icon: Icon, trailing, multiline = false, keyboardType, secureTextEntry, autoCapitalize, style, ...props }: Omit<TextInputProps, 'style'> & { label: string; value: string; onChangeText: (value: string) => void; placeholder?: string; error?: string; helper?: string; icon?: LucideIcon; trailing?: React.ReactNode; multiline?: boolean; keyboardType?: KeyboardTypeOptions; secureTextEntry?: boolean; autoCapitalize?: TextInputProps['autoCapitalize']; style?: StyleProp<ViewStyle> }) {
   const theme = useTheme();
   return <View style={[{ gap: spacing[2] }, style]}>
     <AppText variant="label">{label}</AppText>
     <View style={{ minHeight: multiline ? 112 : sizes.input, flexDirection: 'row', alignItems: multiline ? 'flex-start' : 'center', gap: spacing[2], borderWidth: 1, borderColor: error ? theme.colors.danger : theme.colors.borderStrong, borderRadius: radii.md, backgroundColor: theme.colors.surface, paddingHorizontal: spacing[3], paddingVertical: multiline ? spacing[3] : 0 }}>
       {Icon ? <Icon size={18} color={theme.colors.textMuted} style={multiline ? { marginTop: 2 } : undefined} /> : null}
       <TextInput {...props} accessibilityLabel={label} value={value} onChangeText={onChangeText} placeholder={placeholder} placeholderTextColor={theme.colors.textMuted} multiline={multiline} keyboardType={keyboardType} secureTextEntry={secureTextEntry} autoCapitalize={autoCapitalize} style={[{ flex: 1, color: theme.colors.text, fontFamily: fonts.regular, ...typography.body, minHeight: multiline ? 84 : undefined, textAlignVertical: multiline ? 'top' : 'center', paddingVertical: 0 }]} />
+      {trailing}
     </View>
     {error || helper ? <AppText variant="caption" tone={error ? 'danger' : 'secondary'}>{error ?? helper}</AppText> : null}
   </View>;

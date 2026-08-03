@@ -1,0 +1,45 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 18px 24px; background: var(--paper-50); font-family: var(--font-sans); color: var(--fg-1); }
+  h5 { margin: 0 0 12px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+  .list { background: #fff; border: 1px solid var(--border-1); border-radius: var(--r-3); overflow: hidden; box-shadow: var(--shadow-1); }
+  .row { display: grid; grid-template-columns: 90px 1fr 130px 100px 24px; align-items: center; gap: 14px; padding: 12px 16px; border-bottom: 1px solid var(--border-hair); }
+  .row:last-child { border-bottom: 0; }
+  .row:hover { background: var(--paper-100); }
+  .time { font: 500 13px/1.2 var(--font-mono); color: var(--fg-1); letter-spacing: 0; font-variant-numeric: tabular-nums; }
+  .dur { font: 400 11px/1 var(--font-mono); color: var(--fg-4); letter-spacing:0; margin-top: 3px; }
+  .name { font: 500 14px/1.2 var(--font-sans); color: var(--fg-1); }
+  .type { font: 400 12px/1.2 var(--font-sans); color: var(--fg-3); margin-top: 3px; }
+  .op { font: 400 12px/1.2 var(--font-mono); color: var(--fg-2); letter-spacing:0 }
+  .badge { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; font: 500 11px/1 var(--font-sans); border-radius: 999px; }
+  .dot { width: 6px; height: 6px; border-radius: 999px; }
+  .kb { color: var(--paper-500); font-size: 18px; }
+</style></head>
+<body>
+  <h5>Appointment row · schedule</h5>
+  <div class="list">
+    <div class="row">
+      <div><div class="time">09:00</div><div class="dur">30 min</div></div>
+      <div><div class="name">Amelia Okoye</div><div class="type">Cleaning · recall</div></div>
+      <div class="op">Dr. Nia · Op 1</div>
+      <div><span class="badge" style="background:var(--mint-50); color: var(--mint-600)"><span class="dot" style="background:var(--mint-500)"></span>Confirmed</span></div>
+      <div class="kb">›</div>
+    </div>
+    <div class="row" style="background:var(--teal-50)/*  in chair */">
+      <div><div class="time">09:30</div><div class="dur">60 min</div></div>
+      <div><div class="name">Marcus Chen</div><div class="type">Composite · #14 MOD</div></div>
+      <div class="op">Dr. Ravi · Op 3</div>
+      <div><span class="badge" style="background:var(--teal-50); color: var(--teal-700)"><span class="dot" style="background:var(--teal-500)"></span>In chair</span></div>
+      <div class="kb">›</div>
+    </div>
+    <div class="row">
+      <div><div class="time">10:30</div><div class="dur">45 min</div></div>
+      <div><div class="name">Sofia Reyes</div><div class="type">New patient · exam</div></div>
+      <div class="op">Dr. Nia · Op 1</div>
+      <div><span class="badge" style="background:var(--amber-50); color: var(--amber-600)"><span class="dot" style="background:var(--amber-500)"></span>Unconfirmed</span></div>
+      <div class="kb">›</div>
+    </div>
+  </div>
+</body></html>

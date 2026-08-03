@@ -4,9 +4,9 @@ source='\n'.join(p.read_text(errors='ignore') for p in files('src/**/*.tsx')+fil
 for pattern,label in [(r'LinearGradient|expo-linear-gradient','gradient dependency'),(r'#[A-Fa-f0-9]{6}[^\n]*(purple|violet)|purple|violet','unapproved purple/violet'),(r'[😀-🙏🌀-🫿]','emoji icon')]:
     matches=re.findall(pattern,source,re.I)
     a.require(not matches,'visual-discipline',f'Found {label}: {len(matches)} occurrence(s)','src',severity='high')
-tokens=text('src/ui/tokens.ts')
-for token in ['palette','spacing','radii','sizes','typography','fonts']:a.require(token in tokens,'design-token',f'Missing {token} token','src/ui/tokens.ts')
-a.require(re.search(r'touch:\s*44',tokens) is not None and 'sizes.touch' in source,'touch-target','44px touch token is missing or unused','src/ui/tokens.ts',severity='high')
+tokens='\n'.join(text(path) for path in ['design-system/tokens.ts','design-system/spacing.ts','design-system/radii.ts','design-system/typography.ts','design-system/motion.ts','design-system/elevation.ts'])
+for token in ['palette','spacing','radii','sizes','typography','fonts']:a.require(token in tokens,'design-token',f'Missing {token} token','design-system')
+a.require(re.search(r'touch:\s*44',tokens) is not None and 'sizes.touch' in source,'touch-target','44px touch token is missing or unused','design-system/radii.ts',severity='high')
 tab=text('app/(tabs)/_layout.tsx')
 tab_count=len(re.findall(r'<Tabs\.Screen',tab))
 a.require(tab_count==5,'navigation-load',f'Primary navigation has {tab_count} tabs; expected exactly 5','app/(tabs)/_layout.tsx')

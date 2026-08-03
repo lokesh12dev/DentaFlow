@@ -18,7 +18,7 @@ export function MetricStrip({ items, accessibilityLabel = 'Clinic pulse' }: { it
   return <View accessible accessibilityLabel={accessibilityLabel} style={{ flexDirection: 'row', flexWrap: 'wrap', backgroundColor: theme.colors.surface, borderTopWidth: 1, borderBottomWidth: 1, borderColor: theme.colors.border }}>
     {items.map((item, index) => {
       const tone = item.tone ?? 'primary';
-      return <View key={item.label} style={{ flex: 1, minWidth: 78, minHeight: 68, paddingHorizontal: spacing[3], paddingVertical: spacing[3], justifyContent: 'center', borderLeftWidth: index ? 1 : 0, borderColor: theme.colors.border }}>
+      return <View key={item.label} style={{ flexGrow: 1, flexBasis: 0, minWidth: 0, minHeight: 68, paddingHorizontal: spacing[2], paddingVertical: spacing[3], justifyContent: 'center', borderLeftWidth: index ? 1 : 0, borderColor: theme.colors.border }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing[1] }}>
           {item.icon ? <AppIcon icon={item.icon} size={15} tone={tone === 'info' ? 'information' : tone} /> : null}
           <AppText variant="bodyStrong" style={{ fontVariant: ['tabular-nums'] }}>{item.value}</AppText>

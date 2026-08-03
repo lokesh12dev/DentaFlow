@@ -10,51 +10,53 @@ import type { LucideIcon } from '@/ui/icons';
 import { AppIcon, AppText, ListRow, PageHeader, Screen, SectionHeader, Surface } from '@/ui/components';
 import { spacing } from '@/ui/tokens';
 import { useUIStore } from '@/store/uiStore';
-import { useClinic } from '@/hooks/useClinicQueries';
+import { useClinic, useDashboard } from '@/hooks/useClinicQueries';
+import { can, type Permission } from '@/domain/access';
 
-type Module = { title: string; detail?: string; icon: LucideIcon; route: string };
+type Module = { title: string; detail?: string; icon: LucideIcon; route: string; permission: Permission };
 
 const groups: { title: string; modules: Module[] }[] = [
-  { title: 'Practice operations', modules: [
-    { title: 'Waiting room', detail: 'Live queue and chair handoff', icon: ListChecks, route: '/waiting-room' },
-    { title: 'Billing', detail: 'Receivables and payments', icon: BadgeIndianRupee, route: '/billing' },
-    { title: 'Treatment pipeline', detail: 'Care from proposal to completion', icon: Stethoscope, route: '/treatment-pipeline' },
-    { title: 'Recall', detail: 'Due and overdue patient follow-up', icon: FileClock, route: '/recalls' },
+  { title: 'Clinic operations', modules: [
+    { title: 'Waiting room', icon: ListChecks, route: '/waiting-room', permission: 'waiting.read' },
+    { title: 'Tasks', icon: ClipboardList, route: '/tasks', permission: 'task.read' },
+    { title: 'Recall', icon: FileClock, route: '/recalls', permission: 'recall.read' },
+    { title: 'Treatment pipeline', icon: Stethoscope, route: '/treatment-pipeline', permission: 'treatment.read' },
   ] },
-  { title: 'Clinical operations', modules: [
-    { title: 'Laboratory', detail: 'Cases, shades and due dates', icon: FlaskConical, route: '/laboratory' },
-    { title: 'Inventory', detail: 'Stock, batches and expiry', icon: Package, route: '/inventory' },
-    { title: 'Templates', detail: 'Clinical, consent and message templates', icon: BookOpen, route: '/templates' },
+  { title: 'Finance', modules: [
+    { title: 'Billing', icon: BadgeIndianRupee, route: '/billing', permission: 'billing.read' },
+    { title: 'Reports', icon: LayoutDashboard, route: '/reports', permission: 'report.read' },
   ] },
-  { title: 'Team and insights', modules: [
-    { title: 'Tasks', detail: 'Callbacks and handovers', icon: ClipboardList, route: '/tasks' },
-    { title: 'Reports', detail: 'Operations and collections', icon: LayoutDashboard, route: '/reports' },
-    { title: 'Team', detail: 'People, roles and access', icon: UsersRound, route: '/team' },
-    { title: 'Branches', detail: 'Locations, chairs and context', icon: Building2, route: '/branches' },
+  { title: 'Clinical support', modules: [
+    { title: 'Laboratory', icon: FlaskConical, route: '/laboratory', permission: 'laboratory.read' },
+    { title: 'Inventory', icon: Package, route: '/inventory', permission: 'inventory.read' },
+    { title: 'Templates', icon: BookOpen, route: '/templates', permission: 'template.read' },
   ] },
-  { title: 'System', modules: [
-    { title: 'Automations', detail: 'Reminders and follow-up rules', icon: WandSparkles, route: '/automations' },
-    { title: 'Integrations', detail: 'Connected communication services', icon: SlidersHorizontal, route: '/integrations' },
-    { title: 'Audit log', detail: 'Access and change history', icon: ShieldCheck, route: '/audit' },
-    { title: 'Settings', detail: 'Clinic, privacy and notifications', icon: Settings, route: '/settings' },
+  { title: 'Administration', modules: [
+    { title: 'Team', icon: UsersRound, route: '/team', permission: 'team.manage' },
+    { title: 'Branches', icon: Building2, route: '/branches', permission: 'branch.manage' },
+    { title: 'Automations', icon: WandSparkles, route: '/automations', permission: 'automation.manage' },
+    { title: 'Integrations', icon: SlidersHorizontal, route: '/integrations', permission: 'integration.manage' },
+    { title: 'Audit log', icon: ShieldCheck, route: '/audit', permission: 'audit.read' },
+    { title: 'Settings', icon: Settings, route: '/settings', permission: 'settings.manage' },
   ] },
 ];
 
 export function MoreScreen() {
   const clinic = useClinic();
+  const dashboard = useDashboard();
   const setCommand = useUIStore((state) => state.setCommandOpen);
+  const visibleGroups = groups.map((group) => ({ ...group, modules: group.modules.filter((module) => !dashboard.data || can(dashboard.data.currentStaff.role, module.permission)) })).filter((group) => group.modules.length);
   return <Screen>
     <PageHeader title="More" subtitle={clinic.data?.name ?? 'DentaFlow Clinic'} onSearch={() => setCommand(true)} />
     <View style={{ paddingHorizontal: spacing[4], gap: spacing[5] }}>
-      {groups.map((group) => <View key={group.title} style={{ gap: spacing[2] }}>
+      {visibleGroups.map((group) => <View key={group.title} style={{ gap: spacing[2] }}>
         <SectionHeader title={group.title} />
         <Surface padded={false} style={{ paddingHorizontal: spacing[4] }}>
           {group.modules.map((module, index) => <View key={module.route}>
             <ListRow
               title={module.title}
-              subtitle={module.detail}
               icon={module.icon}
-              iconTone={group.title === 'Clinical operations' ? 'clinical' : 'primary'}
+              iconTone={group.title === 'Clinical support' ? 'clinical' : 'primary'}
               trailing={<AppIcon icon={ChevronRight} size={18} />}
               showChevron={false}
               onPress={() => router.push(module.route as never)}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px 24px; background: var(--bg-surface); font-family: var(--font-sans); color: var(--fg-1); }
+  h5 { margin: 0 0 14px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; }
+  .item h6 { margin: 0 0 6px; font: 500 11px/1 var(--font-mono); color: var(--fg-4); letter-spacing:0 }
+  .eyebrow { font: 500 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--fg-3); }
+  .eyebrow.teal { color: var(--teal-600); }
+  .label { font: 500 12px/1 var(--font-sans); color: var(--fg-2); }
+</style></head>
+<body>
+  <h5>Eyebrows &amp; micro-labels</h5>
+  <div class="grid">
+    <div class="item">
+      <h6>Section eyebrow</h6>
+      <div class="eyebrow">Treatment plan · Q3</div>
+    </div>
+    <div class="item">
+      <h6>Brand eyebrow</h6>
+      <div class="eyebrow teal">DentaFlow · Clinical</div>
+    </div>
+    <div class="item">
+      <h6>Field label (sentence)</h6>
+      <div class="label">Chief complaint</div>
+    </div>
+  </div>
+</body></html>

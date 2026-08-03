@@ -1,0 +1,59 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px 24px; background: var(--bg-surface); font-family: var(--font-sans); color: var(--fg-1); }
+  h5 { margin: 0 0 14px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+  .label { width: 100px; font: 500 11px/1 var(--font-mono); color: var(--fg-4); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    height: 22px; padding: 0 8px;
+    font: 500 11px/1 var(--font-sans);
+    border-radius: var(--r-pill);
+    letter-spacing: 0;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 999px; }
+  .b-mint { background: var(--mint-50); color: var(--mint-600); }
+  .b-mint .dot { background: var(--mint-500); }
+  .b-amber { background: var(--amber-50); color: var(--amber-600); }
+  .b-amber .dot { background: var(--amber-500); }
+  .b-coral { background: var(--coral-50); color: var(--coral-600); }
+  .b-coral .dot { background: var(--coral-500); }
+  .b-slate { background: var(--slate-50); color: var(--slate-600); }
+  .b-slate .dot { background: var(--slate-500); }
+  .b-teal { background: var(--teal-50); color: var(--teal-700); }
+  .b-teal .dot { background: var(--teal-500); }
+  .b-neutral { background: var(--paper-200); color: var(--ink-700); }
+  .b-neutral .dot { background: var(--ink-500); }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    height: 20px; padding: 0 7px;
+    font: 500 11px/1 var(--font-mono);
+    border-radius: var(--r-1);
+    background: var(--paper-100); color: var(--ink-700);
+    border: 1px solid var(--paper-300);
+    letter-spacing: 0;
+  }
+</style></head>
+<body>
+  <h5>Status badges &amp; tags</h5>
+  <div class="row">
+    <div class="label">Appt states</div>
+    <span class="badge b-mint"><span class="dot"></span>Confirmed</span>
+    <span class="badge b-amber"><span class="dot"></span>Unconfirmed</span>
+    <span class="badge b-coral"><span class="dot"></span>No-show</span>
+    <span class="badge b-slate"><span class="dot"></span>Rescheduled</span>
+    <span class="badge b-teal"><span class="dot"></span>In chair</span>
+    <span class="badge b-neutral"><span class="dot"></span>Completed</span>
+  </div>
+  <div class="row">
+    <div class="label">Tags (mono)</div>
+    <span class="tag">#A-4021</span>
+    <span class="tag">D2392</span>
+    <span class="tag">Op 3</span>
+    <span class="tag">MOD</span>
+    <span class="tag">Nia Adaora, DDS</span>
+  </div>
+</body></html>

@@ -43,7 +43,7 @@ export const useFamilyGroups = () => useQuery({ queryKey: queryKeys.families, qu
 export const useStaff = () => useQuery({ queryKey: queryKeys.staff, queryFn: () => clinicRepository.listStaff() });
 export const useProcedures = () => useQuery({ queryKey: queryKeys.procedures, queryFn: () => clinicRepository.listProcedures(), staleTime: 1000 * 60 * 30 });
 export const useBranchProcedurePrices = (branchId: string) => useQuery({ queryKey: queryKeys.branchProcedurePrices(branchId), queryFn: () => clinicRepository.listBranchProcedurePrices(branchId), enabled: Boolean(branchId), staleTime: 1000 * 60 * 10 });
-export const useDashboard = () => useQuery({ queryKey: queryKeys.dashboard, queryFn: () => clinicRepository.getDashboard(), refetchInterval: 60_000 });
+export const useDashboard = (enabled = true) => useQuery({ queryKey: queryKeys.dashboard, queryFn: () => clinicRepository.getDashboard(), refetchInterval: 60_000, enabled });
 export const usePatients = (filters?: PatientFilters) => useQuery({ queryKey: queryKeys.patients(filters), queryFn: () => clinicRepository.listPatients(filters) });
 export const usePatientRecord = (id: string) => useQuery({ queryKey: queryKeys.patient(id), queryFn: () => clinicRepository.getPatientRecord(id), enabled: Boolean(id) });
 export const useAppointments = (filters?: AppointmentFilters) => useQuery({ queryKey: queryKeys.appointments(filters), queryFn: () => clinicRepository.listAppointments(filters) });

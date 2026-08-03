@@ -1,0 +1,358 @@
+/* ==========================================================================
+   DentaFlow Design System — Core Tokens
+   Colors, Type, Spacing, Shadow, Radius, Motion
+   ==========================================================================
+   Import path: /colors_and_type.css (from project root)
+   Or use ../colors_and_type.css from files inside subfolders.
+   ========================================================================== */
+
+/* ---------- Webfonts ---------------------------------------------------- */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./fonts/Geist-Regular.woff2') format('woff2-variations'),
+       url('./fonts/Geist-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./fonts/GeistMono-Regular.woff2') format('woff2-variations'),
+       url('./fonts/GeistMono-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/InstrumentSerif-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/InstrumentSerif-Italic.woff2') format('woff2');
+}
+
+/* ==========================================================================
+   TOKENS
+   ========================================================================== */
+:root {
+  /* ---------- Foundational neutrals (warm off-white / deep ink) --------- */
+  /* Backgrounds — layered warm paper, not cold clinic-white */
+  --paper-50:   #FBF9F6;   /* app background — bone/warm off-white */
+  --paper-100:  #F5F2EC;   /* raised surface, sidebar rail */
+  --paper-200:  #EDE8DF;   /* hover fills, table zebra */
+  --paper-300:  #E1DCD1;   /* dividers, subtle borders */
+  --paper-400:  #CFC8BB;   /* strong dividers */
+  --paper-500:  #AFA79A;   /* placeholder text on paper */
+
+  /* Ink — warm charcoal, never pure black */
+  --ink-900:    #14161A;   /* primary text */
+  --ink-800:    #22252B;   /* headings on tinted bg */
+  --ink-700:    #363A42;   /* body */
+  --ink-600:    #5A6070;   /* secondary text */
+  --ink-500:    #8A8F9C;   /* tertiary / meta */
+  --ink-400:    #B4B8C1;   /* disabled */
+
+  /* ---------- Signature: Enamel Teal ---------------------------------- */
+  /* Calm clinical — the "DentaFlow" color. Used sparingly. */
+  --teal-50:    #EAF4F2;
+  --teal-100:   #CFE5E0;
+  --teal-200:   #A5CFC7;
+  --teal-300:   #6FB0A5;
+  --teal-400:   #3E8F84;
+  --teal-500:   #1F6E66;   /* PRIMARY */
+  --teal-600:   #185852;
+  --teal-700:   #124540;
+  --teal-800:   #0C332F;
+  --teal-900:   #071F1D;
+
+  /* ---------- Semantic accents ---------------------------------------- */
+  /* Success — mint, softer than typical green */
+  --mint-50:    #E8F5EC;
+  --mint-500:   #2F8F51;
+  --mint-600:   #23713F;
+
+  /* Warning — amber, warm not neon */
+  --amber-50:   #FBF1DF;
+  --amber-500:  #C88A1E;
+  --amber-600:  #9E6B12;
+
+  /* Urgent / danger — coral, medical-serious not screaming */
+  --coral-50:   #FBEBE6;
+  --coral-500:  #C64A2E;
+  --coral-600:  #9E3820;
+
+  /* Info — muted slate blue */
+  --slate-50:   #ECEFF4;
+  --slate-500:  #4A6685;
+  --slate-600:  #38506A;
+
+  /* ---------- Semantic surface aliases --------------------------------- */
+  --bg-app:         var(--paper-50);
+  --bg-surface:     #FFFFFF;
+  --bg-raised:      var(--paper-100);
+  --bg-sunken:      var(--paper-200);
+  --bg-hover:       rgba(20, 22, 26, 0.04);
+  --bg-active:      rgba(20, 22, 26, 0.07);
+  --bg-scrim:       rgba(20, 22, 26, 0.42);
+
+  --fg-1:           var(--ink-900);   /* primary */
+  --fg-2:           var(--ink-700);   /* body */
+  --fg-3:           var(--ink-600);   /* secondary */
+  --fg-4:           var(--ink-500);   /* meta */
+  --fg-inverse:     #FBF9F6;
+  --fg-brand:       var(--teal-500);
+
+  --border-hair:    var(--paper-300);       /* 1px table lines, chart grid */
+  --border-1:       var(--paper-400);       /* card, input default */
+  --border-strong:  var(--ink-500);
+  --border-focus:   var(--teal-500);
+
+  /* ---------- Clinical status colors (tooth chart) --------------------- */
+  /* Semantic states used across dental charts, tx plans, statuses */
+  --clin-healthy:   #6FB0A5;   /* healthy tooth */
+  --clin-restored:  #4A6685;   /* existing restoration */
+  --clin-planned:   #C88A1E;   /* treatment planned */
+  --clin-completed: #2F8F51;   /* treatment completed */
+  --clin-issue:     #C64A2E;   /* caries / issue */
+  --clin-missing:   #B4B8C1;   /* missing tooth */
+  --clin-watch:     #9B7BC9;   /* under observation */
+
+  /* ==========================================================================
+     TYPE
+     ========================================================================== */
+  --font-sans:      'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, sans-serif;
+  --font-serif:     'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+  --font-mono:      'Geist Mono', ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+
+  /* Size ramp — dense-UI-friendly */
+  --fs-11: 11px;   /* micro — badges, uppercase labels */
+  --fs-12: 12px;   /* meta */
+  --fs-13: 13px;   /* dense UI body */
+  --fs-14: 14px;   /* body default */
+  --fs-15: 15px;   /* comfortable body */
+  --fs-16: 16px;   /* large body */
+  --fs-18: 18px;   /* h5 / subhead */
+  --fs-20: 20px;   /* h4 */
+  --fs-24: 24px;   /* h3 */
+  --fs-30: 30px;   /* h2 */
+  --fs-38: 38px;   /* h1 */
+  --fs-56: 56px;   /* display */
+  --fs-80: 80px;   /* hero display */
+
+  --lh-tight:  1.1;
+  --lh-snug:   1.25;
+  --lh-normal: 1.45;
+  --lh-relaxed: 1.6;
+
+  --tracking-tight:   -0.02em;
+  --tracking-snug:    -0.01em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.04em;
+  --tracking-caps:    0.08em;
+
+  /* ==========================================================================
+     SPACING (4pt base with tighter 2pt half-steps for dense UI)
+     ========================================================================== */
+  --sp-0:   0;
+  --sp-05:  2px;
+  --sp-1:   4px;
+  --sp-2:   8px;
+  --sp-3:   12px;
+  --sp-4:   16px;
+  --sp-5:   20px;
+  --sp-6:   24px;
+  --sp-8:   32px;
+  --sp-10:  40px;
+  --sp-12:  48px;
+  --sp-16:  64px;
+  --sp-20:  80px;
+  --sp-24:  96px;
+
+  /* ==========================================================================
+     RADIUS — friendly, not-too-round
+     ========================================================================== */
+  --r-1:  3px;    /* input, tag */
+  --r-2:  6px;    /* button, small card */
+  --r-3:  10px;   /* card */
+  --r-4:  14px;   /* modal, big card */
+  --r-5:  20px;   /* sheet */
+  --r-pill: 999px;
+
+  /* ==========================================================================
+     SHADOW — soft, warm-tinted (not pure gray)
+     ========================================================================== */
+  --shadow-hair:    0 0 0 1px rgba(20, 22, 26, 0.06);
+  --shadow-1:       0 1px 2px rgba(20, 22, 26, 0.05), 0 0 0 1px rgba(20, 22, 26, 0.04);
+  --shadow-2:       0 2px 6px rgba(20, 22, 26, 0.06), 0 1px 2px rgba(20, 22, 26, 0.04);
+  --shadow-3:       0 8px 20px rgba(20, 22, 26, 0.08), 0 2px 4px rgba(20, 22, 26, 0.04);
+  --shadow-4:       0 16px 40px rgba(20, 22, 26, 0.12), 0 4px 8px rgba(20, 22, 26, 0.06);
+  --shadow-focus:   0 0 0 3px rgba(31, 110, 102, 0.22);
+
+  /* Inset — used inside inputs, chip counters */
+  --shadow-inset:   inset 0 1px 2px rgba(20, 22, 26, 0.06);
+
+  /* ==========================================================================
+     MOTION — quiet, precise, no bounce
+     ========================================================================== */
+  --ease-standard:  cubic-bezier(0.2, 0, 0.1, 1);     /* default */
+  --ease-enter:     cubic-bezier(0, 0, 0.15, 1);       /* things coming in */
+  --ease-exit:      cubic-bezier(0.4, 0, 1, 1);        /* things leaving */
+  --dur-1: 120ms;    /* hover, small state */
+  --dur-2: 180ms;    /* buttons, small motion */
+  --dur-3: 260ms;    /* overlays, panels */
+  --dur-4: 400ms;    /* page-level transitions */
+}
+
+/* ==========================================================================
+   SEMANTIC TYPE ROLES
+   Use these classes OR reference the CSS vars directly.
+   ========================================================================== */
+
+.t-display,
+.t-hero {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-80);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+.t-display-sm {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-56);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+.t-h1 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-38);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+.t-h2 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-30);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+.t-h3 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-24);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-snug);
+  color: var(--fg-1);
+}
+
+.t-h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-20);
+  line-height: var(--lh-snug);
+  color: var(--fg-1);
+}
+
+.t-h5 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-16);
+  line-height: var(--lh-snug);
+  color: var(--fg-1);
+}
+
+.t-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-14);
+  line-height: var(--lh-normal);
+  color: var(--fg-2);
+}
+
+.t-body-lg {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-16);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-2);
+}
+
+.t-body-sm {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-13);
+  line-height: var(--lh-normal);
+  color: var(--fg-2);
+}
+
+.t-meta {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-12);
+  line-height: var(--lh-normal);
+  color: var(--fg-3);
+}
+
+.t-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--fs-11);
+  line-height: 1;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.t-code,
+.t-tooth {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--fs-13);
+  line-height: 1;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-2);
+}
+
+.t-numeric {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* ==========================================================================
+   BASELINE ELEMENT DEFAULTS (opt-in via class="ds-scope" on wrapper)
+   ========================================================================== */
+.ds-scope {
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  line-height: var(--lh-normal);
+  color: var(--fg-2);
+  background: var(--bg-app);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.ds-scope h1 { font: 600 var(--fs-38)/var(--lh-tight) var(--font-sans); letter-spacing: var(--tracking-tight); color: var(--fg-1); margin: 0; }
+.ds-scope h2 { font: 600 var(--fs-30)/var(--lh-snug) var(--font-sans); letter-spacing: var(--tracking-tight); color: var(--fg-1); margin: 0; }
+.ds-scope h3 { font: 600 var(--fs-24)/var(--lh-snug) var(--font-sans); color: var(--fg-1); margin: 0; }
+.ds-scope h4 { font: 600 var(--fs-20)/var(--lh-snug) var(--font-sans); color: var(--fg-1); margin: 0; }
+.ds-scope h5 { font: 600 var(--fs-16)/var(--lh-snug) var(--font-sans); color: var(--fg-1); margin: 0; }
+.ds-scope p  { margin: 0; }
+.ds-scope code, .ds-scope kbd, .ds-scope samp { font-family: var(--font-mono); font-size: 0.92em; }

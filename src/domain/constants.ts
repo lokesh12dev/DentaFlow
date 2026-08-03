@@ -21,7 +21,7 @@ export const ROLE_LABELS: Record<ClinicRole, string> = {
   receptionist: 'Receptionist',
   assistant: 'Dental assistant',
   billing: 'Billing',
-  manager: 'Practice manager'
+  manager: 'Clinic administrator'
 };
 
 export const CHANNEL_LABELS: Record<CommunicationChannel, string> = {

@@ -1,0 +1,41 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px 24px; background: var(--bg-surface); font-family: var(--font-sans); color: var(--fg-1); }
+  h5 { margin: 0 0 14px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .field label { display: block; font: 500 12px/1 var(--font-sans); color: var(--fg-2); margin-bottom: 6px; }
+  .input {
+    width: 100%; box-sizing: border-box; height: 32px; padding: 0 10px;
+    font: 400 13px/1 var(--font-sans); color: var(--fg-1);
+    background: #fff; border: 1px solid var(--border-1); border-radius: var(--r-2);
+    box-shadow: var(--shadow-inset);
+    outline: none;
+  }
+  .input::placeholder { color: var(--paper-500); }
+  .input.focus { border-color: var(--teal-500); box-shadow: var(--shadow-focus); }
+  .input.error { border-color: var(--coral-500); }
+  .err { margin-top: 4px; font: 400 11px/1 var(--font-sans); color: var(--coral-600); }
+  .hint { margin-top: 4px; font: 400 11px/1.4 var(--font-sans); color: var(--fg-3); }
+</style></head>
+<body>
+  <h5>Text fields</h5>
+  <div class="grid">
+    <div class="field">
+      <label>Chief complaint</label>
+      <input class="input" placeholder="e.g. sensitivity on upper left" />
+      <div class="hint">Patient-reported, in their words.</div>
+    </div>
+    <div class="field">
+      <label>Tooth number</label>
+      <input class="input focus" value="14" style="font-family: var(--font-mono); font-variant-numeric: tabular-nums;" />
+      <div class="hint">FDI notation</div>
+    </div>
+    <div class="field">
+      <label>Insurance ID</label>
+      <input class="input error" value="—" />
+      <div class="err">Required to file claim.</div>
+    </div>
+  </div>
+</body></html>

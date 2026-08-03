@@ -1,8 +1,8 @@
 {
   "audit": "performance",
   "metrics": {
-    "typescript_files": 140,
-    "total_ts_lines": 6631,
+    "typescript_files": 157,
+    "total_ts_lines": 6904,
     "largest_files": [
       [
         "src/domain/types.ts",
@@ -14,7 +14,7 @@
       ],
       [
         "src/repositories/demoRepository.ts",
-        363
+        364
       ],
       [
         "src/data/demo.ts",
@@ -37,12 +37,12 @@
         190
       ],
       [
-        "src/features/workflows/WorkflowForms.tsx",
-        146
+        "src/features/today/TodayScreen.tsx",
+        162
       ],
       [
-        "src/features/today/TodayScreen.tsx",
-        136
+        "src/features/workflows/WorkflowForms.tsx",
+        146
       ]
     ],
     "flashlist_uses": 4

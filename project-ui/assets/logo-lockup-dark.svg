@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none">
+  <g transform="translate(4, 6)">
+    <path d="M14 0.5 C 20 0.5, 25 3, 26.5 8 C 27.5 12, 26.5 18, 24.5 22 C 23 25, 22 27.5, 20.5 27.5 C 19 27.5, 18.5 24, 17 22 C 15.5 24, 14.8 27.5, 13 27.5 C 11 27.5, 9.5 24, 7.5 21 C 5 17, 4 12, 5 8 C 6.5 3, 11 0.5, 14 0.5 Z" fill="#6FB0A5"/>
+    <path d="M12 6 L 16 6 L 15 10 L 13 10 Z" fill="#071F1D" opacity="0.9"/>
+  </g>
+  <text x="40" y="27" font-family="Geist, ui-sans-serif, system-ui, sans-serif" font-size="20" font-weight="600" letter-spacing="-0.02em" fill="#FBF9F6">DentaFlow</text>
+</svg>

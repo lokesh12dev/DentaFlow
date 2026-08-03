@@ -1,10 +1,10 @@
 {
   "audit": "runtime-contracts",
   "metrics": {
-    "package_scripts": 19,
+    "package_scripts": 20,
     "edge_functions": 13,
     "portal_assets": 4,
-    "routes": 51,
+    "routes": 65,
     "source_markers": 0
   },
   "counts": {

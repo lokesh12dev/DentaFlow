@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px 24px; background: var(--bg-surface); font-family: var(--font-sans); color: var(--fg-1); }
+  h5 { margin: 0 0 14px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+  .row { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .row:last-child { margin-bottom: 0; }
+  .label { width: 90px; font: 500 11px/1 var(--font-mono); color: var(--fg-4); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 32px; padding: 0 12px;
+    font: 500 13px/1 var(--font-sans);
+    border-radius: var(--r-2);
+    border: 1px solid transparent;
+    background: transparent; color: var(--fg-1);
+    cursor: pointer;
+    transition: background var(--dur-1) var(--ease-standard);
+  }
+  .btn.lg { height: 40px; padding: 0 16px; font-size: var(--fs-14); }
+  .btn.sm { height: 26px; padding: 0 10px; font-size: var(--fs-12); }
+  .btn.primary { background: var(--teal-500); color: #fff; }
+  .btn.primary:hover { background: var(--teal-600); }
+  .btn.primary.pressed { background: var(--teal-700); }
+  .btn.secondary { background: #fff; border-color: var(--border-1); color: var(--fg-1); }
+  .btn.secondary:hover { background: var(--paper-100); }
+  .btn.ghost { background: transparent; color: var(--fg-1); }
+  .btn.ghost:hover { background: var(--bg-hover); }
+  .btn.danger { background: var(--coral-500); color: #fff; }
+  .btn.disabled { background: var(--paper-200); color: var(--ink-400); cursor: not-allowed; }
+  .btn.focus { box-shadow: var(--shadow-focus); border-color: var(--teal-500); }
+  .btn .dot { width: 6px; height: 6px; border-radius: 999px; background: currentColor; opacity: .9;}
+</style></head>
+<body>
+  <h5>Buttons · primary teal, no scale-on-hover</h5>
+  <div class="row">
+    <div class="label">Primary</div>
+    <button class="btn primary">Save chart</button>
+    <button class="btn primary" style="background:var(--teal-600)">Hover</button>
+    <button class="btn primary pressed">Press</button>
+    <button class="btn primary focus">Focus</button>
+    <button class="btn disabled">Disabled</button>
+  </div>
+  <div class="row">
+    <div class="label">Secondary</div>
+    <button class="btn secondary">Cancel</button>
+    <button class="btn ghost">Ghost link</button>
+    <button class="btn danger">End visit</button>
+  </div>
+  <div class="row">
+    <div class="label">Sizes</div>
+    <button class="btn primary sm">Small · 26</button>
+    <button class="btn primary">Default · 32</button>
+    <button class="btn primary lg">Large · 40</button>
+  </div>
+</body></html>

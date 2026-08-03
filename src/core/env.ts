@@ -2,6 +2,9 @@ const appEnv = process.env.EXPO_PUBLIC_APP_ENV ?? 'development';
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL?.trim();
 const supabaseKey = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim();
 const explicitDemo = process.env.EXPO_PUBLIC_ENABLE_DEMO_MODE === 'true';
+const demoRoleValue = process.env.EXPO_PUBLIC_DEMO_ROLE;
+const demoRoles = ['owner', 'manager', 'dentist', 'receptionist', 'assistant', 'billing'] as const;
+const demoRole = demoRoles.find((role) => role === demoRoleValue) ?? 'owner';
 
 function isConfiguredValue(value: string | undefined): value is string {
   if (!value) return false;
@@ -21,6 +24,7 @@ export const env = {
   supabaseUrl: validSupabaseUrl ? supabaseUrl : undefined,
   supabasePublishableKey: validPublishableKey ? supabaseKey : undefined,
   demoMode: explicitDemo || (appEnv !== 'production' && !isSupabaseConfigured),
+  demoRole,
   isSupabaseConfigured,
   configurationErrors,
   preferProviderMessaging: process.env.EXPO_PUBLIC_PREFER_PROVIDER_MESSAGING !== 'false',

@@ -19,5 +19,6 @@ export * from './MedicalAlert';
 export * from './Timeline';
 export * from './ToothChart';
 export * from './DomainRows';
+export * from './DentaFlowMark';
 
 export * from './SignaturePad';

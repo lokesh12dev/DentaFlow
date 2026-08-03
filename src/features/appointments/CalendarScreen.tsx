@@ -58,7 +58,7 @@ export function CalendarScreen() {
   };
 
   return <Screen>
-    <PageHeader title="Calendar" subtitle={`${appointments.length} scheduled visits`} onSearch={() => setCommand(true)} />
+    <PageHeader title="Calendar" subtitle={`${appointments.length} visits · ${periodLabel}`} onSearch={() => setCommand(true)} />
     <View style={{ paddingHorizontal: spacing[4], gap: spacing[4] }}>
       <SegmentedControl value={view} options={viewOptions} onChange={changeView} compact />
 
@@ -66,7 +66,6 @@ export function CalendarScreen() {
         <IconButton label="Previous period" icon={ChevronLeft} onPress={() => setSelectedDate(addDays(selectedDate, view === 'week' ? -7 : -1))} />
         <View style={{ flex: 1, alignItems: 'center' }}>
           <AppText variant="bodyStrong" numberOfLines={1}>{periodLabel}</AppText>
-          <AppText variant="caption" tone="muted">Tap a date to focus the schedule</AppText>
         </View>
         <IconButton label="Next period" icon={ChevronRight} onPress={() => setSelectedDate(addDays(selectedDate, view === 'week' ? 7 : 1))} />
       </View>
@@ -101,7 +100,7 @@ export function CalendarScreen() {
       </View> : null}
 
       <View>
-        <SectionHeader title={view === 'week' ? 'Week schedule' : 'Day schedule'} subtitle="Chronological clinic rail" />
+        <SectionHeader title={view === 'week' ? 'Week schedule' : 'Today’s schedule'} />
         {appointmentsQuery.isLoading ? <LoadingState /> : appointmentsQuery.isError ? <ErrorState onRetry={() => appointmentsQuery.refetch()} /> : appointments.length === 0 ? <EmptyState title="No visits scheduled" message="Use Book appointment to fill this capacity." icon={CalendarDays} /> : <View style={{ borderTopWidth: 1, borderBottomWidth: 1, borderColor: theme.colors.border }}>
           {appointments.map((appointment, index) => <View key={appointment.id} style={{ borderBottomWidth: index < appointments.length - 1 ? 1 : 0, borderBottomColor: theme.colors.border }}>
             <AppointmentRow appointment={appointment} onPress={() => router.push(`/appointment/${appointment.id}`)} />

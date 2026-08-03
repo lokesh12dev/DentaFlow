@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px 24px; background: var(--bg-surface); font-family: var(--font-sans); color: var(--fg-1); }
+  h5 { margin: 0 0 14px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .col h6 { margin: 0 0 8px; font: 500 11px/1 var(--font-mono); letter-spacing: 0; color: var(--fg-4); }
+  .item { padding: 10px 12px; border-radius: var(--r-2); border: 1px solid var(--border-1); background: #fff; margin-bottom: 6px; font: 400 13px/1.4 var(--font-sans); color: var(--fg-1); }
+  .good { border-left: 3px solid var(--mint-500); }
+  .bad { border-left: 3px solid var(--coral-500); color: var(--fg-3); text-decoration: line-through; }
+</style></head>
+<body>
+  <h5>Voice &amp; tone · do / don't</h5>
+  <div class="grid">
+    <div class="col">
+      <h6>Yes</h6>
+      <div class="item good">"You have 3 unconfirmed appointments."</div>
+      <div class="item good">"Recall sent."</div>
+      <div class="item good">"This overlaps Dr. Nia's block. Move it?"</div>
+    </div>
+    <div class="col">
+      <h6>No</h6>
+      <div class="item bad">"There are 3 unconfirmed appointments."</div>
+      <div class="item bad">"Woohoo, recall sent! 🎉"</div>
+      <div class="item bad">"A scheduling conflict has been detected."</div>
+    </div>
+  </div>
+</body></html>

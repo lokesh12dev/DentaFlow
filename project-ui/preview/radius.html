@@ -1,0 +1,23 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px 24px; background: var(--bg-surface); font-family: var(--font-sans); color: var(--fg-1); }
+  h5 { margin: 0 0 14px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+  .row { display: flex; gap: 16px; align-items: flex-end; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .swatch { width: 88px; height: 88px; background: var(--teal-500); box-shadow: var(--shadow-1); }
+  .name { font: 500 11px/1 var(--font-mono); color: var(--fg-1); }
+  .use { font: 400 11px/1.2 var(--font-sans); color: var(--fg-3); text-align: center; }
+</style></head>
+<body>
+  <h5>Corner radii · precise, never squishy</h5>
+  <div class="row">
+    <div class="item"><div class="swatch" style="border-radius:3px"></div><div class="name">--r-1 · 3px</div><div class="use">Tag<br/>Chip</div></div>
+    <div class="item"><div class="swatch" style="border-radius:6px"></div><div class="name">--r-2 · 6px</div><div class="use">Input<br/>Button</div></div>
+    <div class="item"><div class="swatch" style="border-radius:10px"></div><div class="name">--r-3 · 10px</div><div class="use">Card<br/>Panel</div></div>
+    <div class="item"><div class="swatch" style="border-radius:14px"></div><div class="name">--r-4 · 14px</div><div class="use">Modal<br/>Big card</div></div>
+    <div class="item"><div class="swatch" style="border-radius:20px"></div><div class="name">--r-5 · 20px</div><div class="use">Sheet</div></div>
+    <div class="item"><div class="swatch" style="border-radius:999px"></div><div class="name">--r-pill</div><div class="use">Badge<br/>Avatar</div></div>
+  </div>
+</body></html>

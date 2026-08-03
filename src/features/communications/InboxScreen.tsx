@@ -37,7 +37,7 @@ export function InboxScreen() {
   const newBookingRequests = (bookingRequests.data ?? []).filter((item) => item.status === 'new').length;
 
   return <Screen>
-    <PageHeader title="Inbox" subtitle={`${unread} unread · newest first`} onSearch={() => setCommand(true)} notificationCount={unread} onNotifications={() => setFilter('unread')} />
+    <PageHeader title="Inbox" subtitle={`${unread} unread`} onSearch={() => setCommand(true)} />
     <View style={{ gap: spacing[5] }}>
       {(newBookingRequests || missed) ? <View accessibilityLabel="Inbox action summary" style={{ flexDirection: 'row', paddingHorizontal: spacing[4], backgroundColor: theme.colors.surface, borderTopWidth: 1, borderBottomWidth: 1, borderColor: theme.colors.border }}>
         <Pressable accessibilityRole="button" accessibilityLabel={`${newBookingRequests} booking requests`} onPress={() => router.push('/booking-requests')} style={({ pressed }) => ({ flex: 1, minHeight: 66, paddingVertical: spacing[2], paddingRight: spacing[3], flexDirection: 'row', alignItems: 'center', gap: spacing[2], opacity: pressed ? 0.68 : 1 })}>

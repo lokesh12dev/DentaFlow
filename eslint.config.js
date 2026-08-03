@@ -4,6 +4,6 @@ const { defineConfig } = require('eslint/config');
 module.exports = defineConfig([
   expoConfig,
   {
-    ignores: ['dist/**', 'quality-reports/**', 'patient-portal/**', 'supabase/functions/**'],
+    ignores: ['dist/**', 'quality-reports/**', 'patient-portal/**', 'project-ui/**', 'supabase/functions/**'],
   },
 ]);

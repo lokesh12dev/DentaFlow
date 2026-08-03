@@ -39,13 +39,6 @@ function NavigationRoot() {
       <Stack.Screen name="index" />
       <Stack.Screen name="(auth)" options={{ animation: 'fade' }} />
       <Stack.Screen name="(tabs)" options={{ animation: 'fade' }} />
-      <Stack.Screen name="patient/new" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
-      <Stack.Screen name="patient/[id]" />
-      <Stack.Screen name="appointment/new" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
-      <Stack.Screen name="appointment/[id]" />
-      <Stack.Screen name="clinical/note" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
-      <Stack.Screen name="payment/new" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
-      <Stack.Screen name="communication/new" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
     </Stack></AppShell>
     <CommandPalette />
     <SafeToastHost />

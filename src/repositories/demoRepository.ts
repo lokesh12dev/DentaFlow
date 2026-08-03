@@ -1,4 +1,5 @@
 import { buildDemoSnapshot, buildPatientTimeline } from '@/data/demo';
+import { env } from '@/core/env';
 import { canTransitionAppointment, calculateInvoiceBalance, deriveInvoiceStatus, normalizePhone } from '@/domain/rules';
 import type { Appointment, AppointmentStatus, BookingRequest, BranchProcedurePrice, ClinicSnapshot, Communication, DashboardData, Patient, PatientRecord, Payment } from '@/domain/types';
 import type {
@@ -40,7 +41,7 @@ const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 const id = () => `${Math.random().toString(16).slice(2, 10)}-0000-4000-8000-${Date.now().toString().slice(-12)}`;
 
 function currentStaff() {
-  return snapshot.staff.find((item) => item.role === 'owner') ?? snapshot.staff[0]!;
+  return snapshot.staff.find((item) => item.role === env.demoRole) ?? snapshot.staff.find((item) => item.role === 'owner') ?? snapshot.staff[0]!;
 }
 
 function patientRecord(patientId: string): PatientRecord {
