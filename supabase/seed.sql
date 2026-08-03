@@ -1,0 +1,2 @@
+-- Optional local-development seed. Production data must be created through authenticated RPCs.
+-- Run `supabase db reset` and create a user in Studio, then call create_clinic from the app.

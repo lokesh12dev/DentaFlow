@@ -1,0 +1,56 @@
+project_id = "dentaflow"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 17
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "dentaflow://auth/callback"
+additional_redirect_urls = ["dentaflow://**", "exp://127.0.0.1:8081/--/**"]
+jwt_expiry = 3600
+enable_signup = true
+
+[storage]
+enabled = true
+file_size_limit = "25MiB"
+
+[functions.openrouter-clinical-assist]
+verify_jwt = true
+[functions.whatsapp-send]
+verify_jwt = true
+[functions.email-send]
+verify_jwt = true
+[functions.telephony-call]
+verify_jwt = true
+[functions.sms-send]
+verify_jwt = true
+[functions.notification-dispatch]
+verify_jwt = true
+[functions.provider-webhook]
+verify_jwt = false
+
+[functions.invite-staff]
+verify_jwt = true
+[functions.integration-health]
+verify_jwt = true
+
+[functions.public-booking]
+verify_jwt = false
+[functions.patient-link-create]
+verify_jwt = true
+[functions.patient-intake-submit]
+verify_jwt = false
+[functions.patient-appointment-response]
+verify_jwt = false

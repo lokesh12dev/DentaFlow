@@ -1,0 +1,25 @@
+{
+  "kind": "static workflow heuristic",
+  "warning": "This does not replace moderated usability testing with dentists, receptionists, assistants, and billing staff.",
+  "checks": {
+    "five_primary_tabs": true,
+    "booking_four_steps": true,
+    "patient_four_sections": true,
+    "appointment_lifecycle_contextual": true,
+    "communication_followup": true,
+    "branch_aware_pricing": true,
+    "recovery_states": true,
+    "accessibility_roles": true,
+    "quiet_ai_review": true,
+    "public_patient_flow": true
+  },
+  "interaction_model": {
+    "primary_navigation_choices": 5,
+    "new_booking_steps": 4,
+    "patient_primary_sections": 4,
+    "new_patient_intake_steps": 4,
+    "max_recommended_primary_choices": 7,
+    "meets_choice_limit": true
+  },
+  "passed": true
+}

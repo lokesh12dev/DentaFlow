@@ -1,0 +1,37 @@
+{
+  "kind": "synthetic host-side algorithm simulation",
+  "warning": "This is not an Android/iOS frame-time benchmark and does not replace device profiling, database EXPLAIN ANALYZE, or provider load testing.",
+  "dataset": {
+    "patients": 25000,
+    "appointments": 100000,
+    "timeline_events": 150000
+  },
+  "benchmarks": {
+    "patient_search_25k": {
+      "p50_ms": 1.09,
+      "p95_ms": 1.237,
+      "max_ms": 3.472
+    },
+    "appointment_conflict_100k": {
+      "p50_ms": 0.0,
+      "p95_ms": 0.0,
+      "max_ms": 0.101
+    },
+    "timeline_filter_150k": {
+      "p50_ms": 3.315,
+      "p95_ms": 3.964,
+      "max_ms": 5.062
+    }
+  },
+  "thresholds_p95_ms": {
+    "patient_search_25k": 40,
+    "appointment_conflict_100k": 3,
+    "timeline_filter_150k": 20
+  },
+  "checks": {
+    "patient_search_25k": true,
+    "appointment_conflict_100k": true,
+    "timeline_filter_150k": true
+  },
+  "passed": true
+}

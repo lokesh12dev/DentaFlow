@@ -1,0 +1,19 @@
+{
+  "audit": "usability-and-flow",
+  "metrics": {
+    "workflow_checks": 30,
+    "loading_states": 59,
+    "error_states": 56,
+    "empty_states": 40,
+    "accessibility_labels": 20
+  },
+  "counts": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0
+  },
+  "findings": [],
+  "passed": true
+}

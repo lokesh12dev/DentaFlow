@@ -1,0 +1,211 @@
+{
+  "generated_at": "2026-08-03T17:10:46.358965+00:00",
+  "passed": true,
+  "counts": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 1,
+    "info": 0
+  },
+  "audits": [
+    {
+      "audit": "architecture",
+      "metrics": {
+        "route_count": 51,
+        "feature_files": 32,
+        "repository_methods": 51,
+        "edge_functions": 13,
+        "migrations": 7
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "findings": [],
+      "passed": true
+    },
+    {
+      "audit": "ux-and-design-system",
+      "metrics": {
+        "primary_tabs": 5,
+        "tsx_screens": 32,
+        "component_count": 22,
+        "gradient_matches": 0
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "findings": [],
+      "passed": true
+    },
+    {
+      "audit": "security",
+      "metrics": {
+        "rls_enable_count": 36,
+        "policy_count": 81,
+        "security_definer_functions": 25,
+        "client_secret_reads": 0
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "findings": [],
+      "passed": true
+    },
+    {
+      "audit": "performance",
+      "metrics": {
+        "typescript_files": 140,
+        "total_ts_lines": 6631,
+        "largest_files": [
+          [
+            "src/domain/types.ts",
+            644
+          ],
+          [
+            "src/repositories/supabaseRepository.ts",
+            392
+          ],
+          [
+            "src/repositories/demoRepository.ts",
+            363
+          ],
+          [
+            "src/data/demo.ts",
+            321
+          ],
+          [
+            "src/features/patient/PatientProfileScreen.tsx",
+            233
+          ],
+          [
+            "src/repositories/clinicRepository.ts",
+            202
+          ],
+          [
+            "src/hooks/useClinicQueries.ts",
+            191
+          ],
+          [
+            "src/features/communications/CommunicationComposerScreen.tsx",
+            190
+          ],
+          [
+            "src/features/workflows/WorkflowForms.tsx",
+            146
+          ],
+          [
+            "src/features/today/TodayScreen.tsx",
+            136
+          ]
+        ],
+        "flashlist_uses": 4
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "info": 0
+      },
+      "findings": [
+        {
+          "severity": "low",
+          "check": "large-module",
+          "detail": "644 lines; monitor maintainability",
+          "file": "src/domain/types.ts"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "audit": "usability-and-flow",
+      "metrics": {
+        "workflow_checks": 30,
+        "loading_states": 59,
+        "error_states": 56,
+        "empty_states": 40,
+        "accessibility_labels": 20
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "findings": [],
+      "passed": true
+    },
+    {
+      "audit": "data-model",
+      "metrics": {
+        "tables_expected": 30,
+        "tables_created": 36,
+        "indexes": 22,
+        "functions": 93,
+        "triggers": 38
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "findings": [],
+      "passed": true
+    },
+    {
+      "audit": "runtime-contracts",
+      "metrics": {
+        "package_scripts": 19,
+        "edge_functions": 13,
+        "portal_assets": 4,
+        "routes": 51,
+        "source_markers": 0
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "findings": [],
+      "passed": true
+    },
+    {
+      "audit": "sql-safety",
+      "metrics": {
+        "migrations": 7,
+        "tables": 36,
+        "rls_tables": 36,
+        "policies": 81,
+        "security_definer_functions": 25,
+        "unique_indexes": 4
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "findings": [],
+      "passed": true
+    }
+  ]
+}

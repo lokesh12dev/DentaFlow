@@ -1,0 +1,19 @@
+{
+  "audit": "data-model",
+  "metrics": {
+    "tables_expected": 30,
+    "tables_created": 36,
+    "indexes": 22,
+    "functions": 93,
+    "triggers": 38
+  },
+  "counts": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0
+  },
+  "findings": [],
+  "passed": true
+}

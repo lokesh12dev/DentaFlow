@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "DentaFlow",
+    "slug": "dentaflow",
+    "scheme": "dentaflow",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "com.dentaflow.practice",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Use Face ID to unlock protected clinic data.",
+        "NSPhotoLibraryUsageDescription": "Attach clinical photos and documents to patient records.",
+        "NSCameraUsageDescription": "Capture clinical images for patient records.",
+        "NSMicrophoneUsageDescription": "Record clinical voice notes for doctor-reviewed documentation."
+      }
+    },
+    "android": {
+      "package": "com.dentaflow.practice",
+      "versionCode": 10,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#18324A"
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.VIBRATE",
+        "android.permission.POST_NOTIFICATIONS"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/icon.png"
+    },
+    "plugins": [
+      ["expo-router", { "asyncRoutes": "development" }],
+      ["expo-secure-store", { "configureAndroidBackup": true, "faceIDPermission": "Use Face ID to unlock DentaFlow." }],
+      ["expo-sqlite", { "enableFTS": true, "useSQLCipher": true }],
+      ["expo-notifications", { "icon": "./assets/adaptive-icon.png", "color": "#18324A", "defaultChannel": "clinic-alerts" }],
+      ["expo-image-picker", { "photosPermission": "Attach clinical photos and documents.", "cameraPermission": "Capture clinical images.", "microphonePermission": false }],
+      ["expo-audio", { "microphonePermission": "Record clinical voice notes.", "enableBackgroundRecording": false, "enableBackgroundPlayback": false }],
+      ["expo-splash-screen", { "image": "./assets/splash.png", "resizeMode": "contain", "backgroundColor": "#F4F5F7" }],
+      "expo-local-authentication"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "eas": { "projectId": "REPLACE_WITH_YOUR_EAS_PROJECT_ID" }
+    }
+  }
+}
