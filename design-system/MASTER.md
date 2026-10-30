@@ -39,3 +39,17 @@ Use native material where supported, BlurView as a restrained iOS fallback, tone
 ## Page contracts
 
 See `pages/` for durable screen-level hierarchy. Role and product rules live in `docs/product/` and take precedence over styling.
+
+## Token governance (Phase 3 audit, 2026-10-30)
+
+The following rules are now **enforced and swept** across `src/` (verified by grep sweep on this date; keep them true in review):
+
+1. **Every color literal lives in the design system.** `palette` (light + shared surfaces), `darkDerivatives` (dark-theme accent/soft remapping, consumed only by `src/ui/ThemeProvider.tsx`), and `printPalette` (exploded-HTML documents: receipts, prescriptions, Android notification channel navy) are the only allowed literal locations. `src/ui/ThemeProvider.tsx` is a pure mapping for both themes. Application code resolves color exclusively through `useTheme()`.
+2. **Tabular numerals on data that aligns or updates:** metric values (`MetricStrip`, `MetricTile` via the `number` variant), calendar day numbers, appointment times in rows, money columns on Reports/Billing/Patient ledger/treatment plans, booking and visit summary rows, branch pricing, timeline/media timestamps, progress-percentage, and Button/Chip labels so pay/refund amounts cannot jitter while typing. Implement via the `tabular` prop of `AppText` or an explicit `fontVariant: ['tabular-nums']`.
+3. **Touch targets ≥ 44px (visual or hitSlop-equivalent):** tabs, chips (`sizes.touch`), segmented controls, FAB, buttons, icon buttons, toast dismiss, list rows, tooth cells (34px visual + hitSlop to 44 without overlapping neighbors), sheet action pills, header section actions.
+4. **Modal surfaces are real dialogs on web:** `ModalSheet` and `CommandPalette` render `role="dialog"` + `aria-modal`, and `src/ui/modalFocus.ts` moves focus into the dialog on open, wraps Tab inside it, and closes on Escape. Native platforms keep system-modal behavior (hook is a web no-op); the backdrop is `aria-hidden`.
+5. **Motion discipline:** control transitions stay sub-200ms; the only longer durations are ambient (skeleton shimmer 1400ms loop), which honors the reduced-motion setting.
+6. **Typing:** zero `any` across `src/ui` (including GlassTabBar props, which import the bottom-tabs types bundled inside the current expo-router). The one remaining boundary `any` is the Supabase row cast in `src/repositories/supabaseRepository.ts:274`, owned by Track A3 of `IMPLEMENTATION_ROADMAP.md`.
+
+Known, deliberate exceptions: none. Printed documents still use the legacy document palette (`printPalette`) — visually distinct from the on-screen warm palette by choice, noted inside `design-system/print.ts`.
+

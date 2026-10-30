@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { PanResponder, View } from 'react-native';
 import Svg, { Polyline } from 'react-native-svg';
 import { useTheme } from '../ThemeProvider';
-import { radii, sizes, spacing } from '../tokens';
+import { radii, spacing } from '../tokens';
 import { AppText } from './Typography';
 import { Button } from './Button';
 import { Trash2 } from '../icons';

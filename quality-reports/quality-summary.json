@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03T19:07:52.930184+00:00",
+  "generated_at": "2026-10-30T05:08:04.475700+00:00",
   "passed": true,
   "counts": {
     "critical": 0,
@@ -14,9 +14,9 @@
       "metrics": {
         "route_count": 65,
         "feature_files": 32,
-        "repository_methods": 51,
+        "repository_methods": 52,
         "edge_functions": 13,
-        "migrations": 7
+        "migrations": 9
       },
       "counts": {
         "critical": 0,
@@ -51,7 +51,7 @@
       "metrics": {
         "rls_enable_count": 36,
         "policy_count": 81,
-        "security_definer_functions": 25,
+        "security_definer_functions": 26,
         "client_secret_reads": 0
       },
       "counts": {
@@ -67,48 +67,48 @@
     {
       "audit": "performance",
       "metrics": {
-        "typescript_files": 157,
-        "total_ts_lines": 6904,
+        "typescript_files": 158,
+        "total_ts_lines": 7399,
         "largest_files": [
           [
             "src/domain/types.ts",
-            644
+            650
           ],
           [
             "src/repositories/supabaseRepository.ts",
-            392
+            408
           ],
           [
             "src/repositories/demoRepository.ts",
-            364
+            365
           ],
           [
             "src/data/demo.ts",
-            321
+            323
           ],
           [
             "src/features/patient/PatientProfileScreen.tsx",
-            233
+            234
           ],
           [
-            "src/repositories/clinicRepository.ts",
-            202
+            "src/domain/rules.ts",
+            224
           ],
           [
             "src/hooks/useClinicQueries.ts",
-            191
+            218
+          ],
+          [
+            "src/repositories/clinicRepository.ts",
+            203
           ],
           [
             "src/features/communications/CommunicationComposerScreen.tsx",
-            190
+            191
           ],
           [
-            "src/features/today/TodayScreen.tsx",
-            162
-          ],
-          [
-            "src/features/workflows/WorkflowForms.tsx",
-            146
+            "src/features/operations/ReportsScreen.tsx",
+            172
           ]
         ],
         "flashlist_uses": 4
@@ -124,7 +124,7 @@
         {
           "severity": "low",
           "check": "large-module",
-          "detail": "644 lines; monitor maintainability",
+          "detail": "650 lines; monitor maintainability",
           "file": "src/domain/types.ts"
         }
       ],
@@ -134,9 +134,9 @@
       "audit": "usability-and-flow",
       "metrics": {
         "workflow_checks": 30,
-        "loading_states": 59,
-        "error_states": 56,
-        "empty_states": 40,
+        "loading_states": 61,
+        "error_states": 58,
+        "empty_states": 42,
         "accessibility_labels": 20
       },
       "counts": {
@@ -155,7 +155,7 @@
         "tables_expected": 30,
         "tables_created": 36,
         "indexes": 22,
-        "functions": 93,
+        "functions": 95,
         "triggers": 38
       },
       "counts": {
@@ -190,11 +190,11 @@
     {
       "audit": "sql-safety",
       "metrics": {
-        "migrations": 7,
+        "migrations": 9,
         "tables": 36,
         "rls_tables": 36,
         "policies": 81,
-        "security_definer_functions": 25,
+        "security_definer_functions": 26,
         "unique_indexes": 4
       },
       "counts": {

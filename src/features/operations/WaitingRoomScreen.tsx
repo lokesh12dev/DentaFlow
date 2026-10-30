@@ -69,9 +69,10 @@ export function WaitingRoomScreen() {
 }
 
 function SummaryStrip({ waiting, inChair, delayed }: { waiting: number; inChair: number; delayed: number }) {
+  const theme = useTheme();
   const items = [{ label: 'Waiting', value: waiting }, { label: 'In chair', value: inChair }, { label: 'Over 15 min', value: delayed }];
   return <Surface style={{ paddingVertical: spacing[3], flexDirection: 'row' }}>
-    {items.map((item, index) => <View key={item.label} style={{ flex: 1, alignItems: 'center', borderLeftWidth: index ? 1 : 0, borderLeftColor: 'rgba(128, 138, 148, 0.22)' }}>
+    {items.map((item, index) => <View key={item.label} style={{ flex: 1, alignItems: 'center', borderLeftWidth: index ? 1 : 0, borderLeftColor: theme.colors.border }}>
       <AppText variant="title2" style={{ fontVariant: ['tabular-nums'] }}>{item.value}</AppText>
       <AppText variant="caption" tone="secondary">{item.label}</AppText>
     </View>)}
@@ -116,4 +117,4 @@ function readinessBlockers(appointment: Appointment) {
   ].filter((item): item is string => Boolean(item));
 }
 
-function Divider() { return <View style={{ height: 1, backgroundColor: 'rgba(128, 138, 148, 0.18)' }} />; }
+function Divider() { const theme = useTheme(); return <View style={{ height: 1, backgroundColor: theme.colors.border }} />; }

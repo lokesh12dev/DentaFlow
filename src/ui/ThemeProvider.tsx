@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useColorScheme } from 'react-native';
-import { palette } from './tokens';
+import { palette, darkDerivatives } from './tokens';
 import { secureStorage } from '@/core/secureStorage';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
@@ -62,11 +62,12 @@ const dark: AppTheme = {
   colors: {
     ...light.colors,
     canvas: palette.canvasDark, surface: palette.surfaceDark, surfaceSecondary: palette.surfaceDarkSecondary,
-    surfaceTertiary: '#242A31', text: palette.textDark, textSecondary: palette.textDarkSecondary, textMuted: '#7E8791',
-    textInverse: palette.text, border: palette.borderDark, borderStrong: '#3A424B', primary: '#D8E6F2', primaryPressed: '#C5DAEA',
-    primarySoft: '#223749', clinical: '#57B7AF', clinicalPressed: '#42A49C', clinicalSoft: '#173C3A',
-    successSoft: '#18382A', warningSoft: '#3D2F19', dangerSoft: '#472324', infoSoft: '#1E334A', glass: palette.glassDark,
-    focus: '#65B7CD'
+    surfaceTertiary: darkDerivatives.surfaceTertiary, text: palette.textDark, textSecondary: palette.textDarkSecondary,
+    textMuted: darkDerivatives.textMuted, textInverse: palette.text, border: palette.borderDark, borderStrong: darkDerivatives.borderStrong,
+    primary: darkDerivatives.primary, primaryPressed: darkDerivatives.primaryPressed, primarySoft: darkDerivatives.primarySoft,
+    clinical: darkDerivatives.clinical, clinicalPressed: darkDerivatives.clinicalPressed, clinicalSoft: darkDerivatives.clinicalSoft,
+    successSoft: darkDerivatives.successSoft, warningSoft: darkDerivatives.warningSoft, dangerSoft: darkDerivatives.dangerSoft,
+    infoSoft: darkDerivatives.infoSoft, glass: palette.glassDark, focus: darkDerivatives.focus
   }
 };
 

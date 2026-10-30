@@ -4,7 +4,7 @@
     "tables_expected": 30,
     "tables_created": 36,
     "indexes": 22,
-    "functions": 93,
+    "functions": 95,
     "triggers": 38
   },
   "counts": {

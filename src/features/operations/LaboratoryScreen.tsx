@@ -53,7 +53,8 @@ function SummaryStrip({ active, due, delayed }: { active: number; due: number; d
 }
 
 function SummaryValue({ label, value, divided = false }: { label: string; value: number; divided?: boolean }) {
-  return <View style={{ flex: 1, alignItems: 'center', borderLeftWidth: divided ? 1 : 0, borderLeftColor: 'rgba(128, 138, 148, 0.22)' }}>
+  const theme = useTheme();
+  return <View style={{ flex: 1, alignItems: 'center', borderLeftWidth: divided ? 1 : 0, borderLeftColor: theme.colors.border }}>
     <AppText variant="title2" style={{ fontVariant: ['tabular-nums'] }}>{value}</AppText>
     <AppText variant="caption" tone="secondary">{label}</AppText>
   </View>;
@@ -97,4 +98,4 @@ function nextStep(status: LabCaseStatus) {
   return ({ draft: 'send case to laboratory', sent: 'confirm laboratory receipt', 'in-progress': 'track production handoff', 'trial-ready': 'schedule clinical trial', received: 'review and fit', fitted: 'case complete', delayed: 'contact laboratory', cancelled: 'no further action' })[status];
 }
 
-function Divider() { return <View style={{ height: 1, backgroundColor: 'rgba(128, 138, 148, 0.18)' }} />; }
+function Divider() { const theme = useTheme(); return <View style={{ height: 1, backgroundColor: theme.colors.border }} />; }

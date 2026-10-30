@@ -4,8 +4,8 @@ import { router } from 'expo-router';
 import type { TaskStatus } from '@/domain/types';
 import { useSetTaskStatus, useTasks } from '@/hooks/useClinicQueries';
 import { useUIStore } from '@/store/uiStore';
-import { AppText, Badge, Button, Chip, EmptyState, ErrorState, LoadingState, PageHeader, Screen, SectionHeader, Surface, TaskRow } from '@/ui/components';
-import { CheckCircle2, ClipboardList, Clock3, Filter, Plus } from '@/ui/icons';
+import { AppText, Button, Chip, EmptyState, ErrorState, LoadingState, PageHeader, Screen, SectionHeader, Surface, TaskRow } from '@/ui/components';
+import { CheckCircle2, ClipboardList, Filter, Plus } from '@/ui/icons';
 import { spacing } from '@/ui/tokens';
 import { useTheme } from '@/ui/ThemeProvider';
 

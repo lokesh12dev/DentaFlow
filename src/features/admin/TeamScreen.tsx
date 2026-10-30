@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import { ROLE_LABELS } from '@/domain/constants';
 import { useStaff } from '@/hooks/useClinicQueries';
 import { AppText, Avatar, Badge, Button, Chip, EmptyState, ErrorState, LoadingState, MetricTile, PageHeader, Screen, SectionHeader, Surface } from '@/ui/components';
-import { Building2, LockKeyhole, Plus, ShieldCheck, UserRoundPlus, UsersRound } from '@/ui/icons';
+import { Building2, LockKeyhole, ShieldCheck, UserRoundPlus, UsersRound } from '@/ui/icons';
 import { spacing } from '@/ui/tokens';
 import { useTheme } from '@/ui/ThemeProvider';
 

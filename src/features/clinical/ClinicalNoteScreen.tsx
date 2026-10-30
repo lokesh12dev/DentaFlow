@@ -6,7 +6,7 @@ import { RecordingPresets, requestRecordingPermissionsAsync, setAudioModeAsync, 
 import { useCreateClinicalNote, usePatientRecord } from '@/hooks/useClinicQueries';
 import { useUIStore } from '@/store/uiStore';
 import { Camera, Check, FileText, Image as ImageIcon, Mic, Pause, ShieldCheck, Sparkles, Stethoscope } from '@/ui/icons';
-import { AppText, Badge, Button, Chip, ErrorState, Field, LoadingState, PageHeader, ProgressBar, Screen, SectionHeader, Surface, ToothChart } from '@/ui/components';
+import { AppText, Badge, Button, ErrorState, Field, LoadingState, PageHeader, ProgressBar, Screen, SectionHeader, Surface, ToothChart } from '@/ui/components';
 import { spacing } from '@/ui/tokens';
 import { useTheme } from '@/ui/ThemeProvider';
 import { generateClinicalDraft } from '@/services/clinicalAi';

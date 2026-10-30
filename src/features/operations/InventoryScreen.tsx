@@ -5,8 +5,8 @@ import { router } from 'expo-router';
 import type { StockStatus } from '@/domain/types';
 import { useInventory } from '@/hooks/useClinicQueries';
 import { money } from '@/core/format';
-import { AppText, Badge, Button, Chip, EmptyState, ErrorState, LoadingState, MetricTile, PageHeader, ProgressBar, Screen, SearchField, SectionHeader, Surface } from '@/ui/components';
-import { Box, Package, Plus, Search, ShoppingCart, TriangleAlert } from '@/ui/icons';
+import { AppText, Badge, Button, Chip, EmptyState, ErrorState, LoadingState, MetricTile, PageHeader, ProgressBar, Screen, SearchField, Surface } from '@/ui/components';
+import { Box, Package, Plus, ShoppingCart, TriangleAlert } from '@/ui/icons';
 import { spacing } from '@/ui/tokens';
 import { useTheme } from '@/ui/ThemeProvider';
 

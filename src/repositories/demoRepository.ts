@@ -245,6 +245,7 @@ export const demoRepository: ClinicRepository = {
     if (task) { task.status = status; task.completedAt = status === 'done' ? new Date().toISOString() : undefined; }
   },
   async listInvoices() { return clone([...snapshot.invoices].sort((a, b) => b.issuedAt.localeCompare(a.issuedAt))); },
+  async listPayments() { return clone([...snapshot.payments].sort((a, b) => b.receivedAt.localeCompare(a.receivedAt))); },
   async recordPayment(input: RecordPaymentInput) {
     const invoice = input.invoiceId ? snapshot.invoices.find((item) => item.id === input.invoiceId) : undefined;
     const payment: Payment = {

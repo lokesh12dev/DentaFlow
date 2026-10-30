@@ -3,7 +3,7 @@
   "metrics": {
     "rls_enable_count": 36,
     "policy_count": 81,
-    "security_definer_functions": 25,
+    "security_definer_functions": 26,
     "client_secret_reads": 0
   },
   "counts": {

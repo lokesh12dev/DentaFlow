@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { Pressable, View } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import type { BookingRequest, ClinicRole, Payment, StaffMember } from '@/domain/types';
 import { ROLE_LABELS } from '@/domain/constants';
-import { money, dateTime, relativeTime } from '@/core/format';
+import { money, relativeTime } from '@/core/format';
 import { callPhone } from '@/core/linking';
 import {
-  useBookingRequests, useInventory, usePatientRecord, usePatients, useRefundPayment, useSetBookingRequestStatus,
+  useBookingRequests, useInventory, usePatientRecord, useRefundPayment, useSetBookingRequestStatus,
   useSignConsent, useStaff, useUpdateStaff, useRecordInventoryMovement
 } from '@/hooks/useClinicQueries';
 import { useUIStore } from '@/store/uiStore';
@@ -61,9 +61,9 @@ export function RefundPaymentScreen(){
 }
 
 function RefundPaymentForm({payment,patientName}:{payment:Payment;patientName:string}){
-  const mutation=useRefundPayment();const toast=useUIStore(s=>s.showToast);const refundable=Math.max(0,payment.amount-(payment.refundAmount??0));const[amount,setAmount]=useState(String(refundable));const[reason,setReason]=useState('');const idempotencyAttempt=useRef<{signature:string;key:string}|null>(null);
-  const submit=async()=>{const value=Number(amount);const normalizedReason=reason.trim();if(!value||value>refundable||normalizedReason.length<3)return toast('Enter a valid amount and refund reason.','warning');const signature=`${payment.id}:${value}:${normalizedReason}`;if(idempotencyAttempt.current?.signature!==signature)idempotencyAttempt.current={signature,key:`refund:${payment.id}:${Date.now()}`};try{await mutation.mutateAsync({paymentId:payment.id,amount:value,reason:normalizedReason,idempotencyKey:idempotencyAttempt.current.key});toast('Refund recorded and balances recalculated.','success');router.back()}catch(error){toast(error instanceof Error?error.message:'Unable to refund payment.','danger')}};
-  return <Screen><PageHeader title="Refund payment" subtitle={`${payment.receiptNumber} · ${patientName}`} onBack={()=>router.back()}/><View style={{paddingHorizontal:spacing[4],gap:spacing[4]}}><Surface tone="warning" style={{gap:spacing[3]}}><SectionHeader title="Refundable balance" icon={Receipt}/><AppText variant="display">{money(refundable)}</AppText><AppText tone="secondary">Original {money(payment.amount)} · already refunded {money(payment.refundAmount??0)}</AppText></Surface><Surface style={{gap:spacing[3]}}><Field label="Refund amount" value={amount} onChangeText={setAmount} keyboardType="decimal-pad"/><Field label="Reason" value={reason} onChangeText={setReason} multiline placeholder="Duplicate charge, treatment change, provider reversal…"/></Surface><Surface tone="danger"><AppText variant="bodyStrong">Refunds are immutable financial events.</AppText><AppText tone="secondary">The original receipt remains preserved and a refund event is added to the audit trail.</AppText></Surface><Button label={`Refund ${money(Number(amount)||0)}`} icon={BadgeIndianRupee} tone="danger" onPress={submit} loading={mutation.isPending} full/></View></Screen>;
+  const mutation=useRefundPayment();const toast=useUIStore(s=>s.showToast);const refundable=Math.max(0,payment.amount-(payment.refundAmount??0));const[amount,setAmount]=useState(String(refundable));const[reason,setReason]=useState('');const[idempotencyKey,setIdempotencyKey]=useState<string>(`refund:${payment.id}:<pending>`);
+  const submit=async()=>{const value=Number(amount);const normalizedReason=reason.trim();if(!value||value>refundable||normalizedReason.length<3)return toast('Enter a valid amount and refund reason.','warning');const key=`refund:${payment.id}:${Date.now()}`;setIdempotencyKey(key);try{await mutation.mutateAsync({paymentId:payment.id,amount:value,reason:normalizedReason,idempotencyKey:key});toast(`Refund recorded (${key}). Balances recalculated.`,'success');router.back()}catch(error){toast(error instanceof Error?error.message:'Unable to refund payment.','danger')}};
+  return <Screen><PageHeader title="Refund payment" subtitle={`${payment.receiptNumber} · ${patientName}`} onBack={()=>router.back()}/><View style={{paddingHorizontal:spacing[4],gap:spacing[4]}}><Surface tone="warning" style={{gap:spacing[3]}}><SectionHeader title="Refundable balance" icon={Receipt}/><AppText variant="display" tabular>{money(refundable)}</AppText><AppText tone="secondary">Original {money(payment.amount)} · already refunded {money(payment.refundAmount??0)}</AppText></Surface><Surface style={{gap:spacing[3]}}><Field label="Refund amount" value={amount} onChangeText={setAmount} keyboardType="decimal-pad"/><Field label="Reason" value={reason} onChangeText={setReason} multiline placeholder="Duplicate charge, treatment change, provider reversal…"/></Surface><Surface tone="secondary" style={{gap:spacing[2]}}><SectionHeader title="Idempotency key" icon={ShieldCheck} subtitle="Unique key preventing duplicate refunds if the request is retried"/><AppText variant="caption" tone="muted" style={{ fontFamily: 'monospace' }}>{idempotencyKey}</AppText></Surface><Surface tone="danger"><AppText variant="bodyStrong">Refunds are immutable financial events.</AppText><AppText tone="secondary">The original receipt remains preserved and a refund event is added to the audit trail.</AppText></Surface><Button label={`Refund ${money(Number(amount)||0)}`} icon={BadgeIndianRupee} tone="danger" onPress={submit} loading={mutation.isPending} full/></View></Screen>;
 }
 
 export function InventoryMovementScreen(){

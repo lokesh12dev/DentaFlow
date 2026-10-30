@@ -139,6 +139,7 @@ export function CommunicationComposerScreen() {
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing[2] }}>
           {channels.map((item) => <Chip key={item} label={CHANNEL_LABELS[item]} selected={channel === item} onPress={() => setChannel(item)} />)}
         </View>
+        {channel === 'whatsapp' && <View style={{ gap: 2 }}><AppText variant="caption" tone="secondary">{demoMode ? 'WhatsApp: demo mode — provider delivery not configured' : env.preferProviderMessaging ? 'WhatsApp: provider delivery configured' : 'WhatsApp: device fallback only — provider not configured'}</AppText>{demoMode || !env.preferProviderMessaging ? <AppText variant="caption" tone="warning">Messages will open on this device and be logged, not sent via provider.</AppText> : null}</View>}
       </Surface>
 
       <Surface style={{ gap: spacing[3] }}>

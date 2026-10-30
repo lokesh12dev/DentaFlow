@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Animated, Pressable, View } from 'react-native';
+import { AccessibilityInfo, ActivityIndicator, Animated, Pressable, View } from 'react-native';
 import { usePathname } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AlertCircle, CheckCircle2, Info, RefreshCw, TriangleAlert, X } from '../icons';
@@ -17,7 +17,7 @@ export function LoadingState({ label = 'Loading clinic data…' }: { label?: str
 
 export function ErrorState({ title = 'Unable to load this view', message, onRetry }: { title?: string; message?: string; onRetry?: () => void }) {
   const theme = useTheme();
-  return <View style={{ minHeight: 240, alignItems: 'center', justifyContent: 'center', padding: spacing[6], gap: spacing[3] }}>
+  return <View accessibilityRole="alert" accessibilityLiveRegion="polite" style={{ minHeight: 240, alignItems: 'center', justifyContent: 'center', padding: spacing[6], gap: spacing[3] }}>
     <View style={{ width: 52, height: 52, borderRadius: 18, backgroundColor: theme.colors.dangerSoft, alignItems: 'center', justifyContent: 'center' }}><AlertCircle size={24} color={theme.colors.danger} /></View>
     <AppText variant="title3" style={{ textAlign: 'center' }}>{title}</AppText>
     {message ? <AppText tone="secondary" style={{ textAlign: 'center' }}>{message}</AppText> : null}
@@ -27,7 +27,7 @@ export function ErrorState({ title = 'Unable to load this view', message, onRetr
 
 export function EmptyState({ title, message, actionLabel, onAction, icon: Icon = CheckCircle2 }: { title: string; message: string; actionLabel?: string; onAction?: () => void; icon?: typeof CheckCircle2 }) {
   const theme = useTheme();
-  return <View style={{ minHeight: 220, alignItems: 'center', justifyContent: 'center', padding: spacing[6], gap: spacing[3] }}>
+  return <View accessibilityRole="summary" style={{ minHeight: 220, alignItems: 'center', justifyContent: 'center', padding: spacing[6], gap: spacing[3] }}>
     <View style={{ width: 52, height: 52, borderRadius: 18, backgroundColor: theme.colors.surfaceTertiary, alignItems: 'center', justifyContent: 'center' }}><Icon size={24} color={theme.colors.textSecondary} /></View>
     <AppText variant="title3" style={{ textAlign: 'center' }}>{title}</AppText>
     <AppText tone="secondary" style={{ textAlign: 'center', maxWidth: 330 }}>{message}</AppText>
@@ -38,11 +38,32 @@ export function EmptyState({ title, message, actionLabel, onAction, icon: Icon =
 export function Skeleton({ width = '100%', height = 18, radius = 8 }: { width?: number | `${number}%`; height?: number; radius?: number }) {
   const theme = useTheme();
   const [opacity] = useState(() => new Animated.Value(0.45));
+  const [reduceMotion, setReduceMotion] = useState(false);
   useEffect(() => {
+    let mounted = true;
+    void AccessibilityInfo.isReduceMotionEnabled().then((enabled) => { if (mounted) setReduceMotion(enabled); });
+    const subscription = AccessibilityInfo.addEventListener('reduceMotionChanged', setReduceMotion);
+    return () => { mounted = false; subscription.remove(); };
+  }, []);
+  useEffect(() => {
+    if (reduceMotion) {
+      opacity.setValue(0.65);
+      return;
+    }
     const loop = Animated.loop(Animated.sequence([Animated.timing(opacity, { toValue: 0.9, duration: 700, useNativeDriver: true }), Animated.timing(opacity, { toValue: 0.45, duration: 700, useNativeDriver: true })]));
     loop.start(); return () => loop.stop();
-  }, [opacity]);
+  }, [opacity, reduceMotion]);
   return <Animated.View style={{ width, height, borderRadius: radius, backgroundColor: theme.colors.surfaceTertiary, opacity }} />;
+}
+
+export function AccessDeniedState({ title = 'You don’t have access to that area.', message = 'This workspace is limited to the permissions of your clinic role. Ask an owner or clinic administrator if you need a different assignment.', onBack }: { title?: string; message?: string; onBack?: () => void }) {
+  const theme = useTheme();
+  return <View accessibilityRole="alert" accessibilityLiveRegion="assertive" style={{ minHeight: 240, alignItems: 'center', justifyContent: 'center', padding: spacing[6], gap: spacing[3] }}>
+    <View style={{ width: 52, height: 52, borderRadius: 18, backgroundColor: theme.colors.warningSoft, alignItems: 'center', justifyContent: 'center' }}><TriangleAlert size={24} color={theme.colors.warning} /></View>
+    <AppText variant="title3" style={{ textAlign: 'center' }}>{title}</AppText>
+    <AppText tone="secondary" style={{ textAlign: 'center', maxWidth: 360 }}>{message}</AppText>
+    {onBack ? <Button label="Return to More" tone="secondary" onPress={onBack} /> : null}
+  </View>;
 }
 
 export function ToastHost() {

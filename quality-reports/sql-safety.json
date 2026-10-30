@@ -1,11 +1,11 @@
 {
   "audit": "sql-safety",
   "metrics": {
-    "migrations": 7,
+    "migrations": 9,
     "tables": 36,
     "rls_tables": 36,
     "policies": 81,
-    "security_definer_functions": 25,
+    "security_definer_functions": 26,
     "unique_indexes": 4
   },
   "counts": {

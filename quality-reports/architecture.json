@@ -3,9 +3,9 @@
   "metrics": {
     "route_count": 65,
     "feature_files": 32,
-    "repository_methods": 51,
+    "repository_methods": 52,
     "edge_functions": 13,
-    "migrations": 7
+    "migrations": 9
   },
   "counts": {
     "critical": 0,

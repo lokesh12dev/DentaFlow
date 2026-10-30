@@ -25,7 +25,7 @@ export function ListRow({ title, subtitle, meta, icon: Icon, iconTone = 'primary
   }[iconTone];
   const content = <View style={{ minHeight: 68, flexDirection: 'row', alignItems: 'center', gap: spacing[3], paddingVertical: spacing[3] }}>
     {leading ?? (Icon ? <View style={{ width: 40, height: 40, borderRadius: radii.md, backgroundColor: iconVisual[0], alignItems: 'center', justifyContent: 'center' }}><Icon size={19} color={iconVisual[1]} /></View> : null)}
-    <View style={{ flex: 1, gap: 2 }}><View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing[2] }}><AppText variant="bodyStrong" tone={destructive ? 'danger' : 'primary'} numberOfLines={1} style={{ flexShrink: 1 }}>{title}</AppText>{badge ? <Badge label={badge} tone={badgeTone} /> : null}</View>{subtitle ? <AppText tone="secondary" numberOfLines={2}>{subtitle}</AppText> : null}{meta ? <AppText variant="caption" tone="muted" numberOfLines={1}>{meta}</AppText> : null}</View>
+    <View style={{ flex: 1, gap: 2 }}><View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing[2] }}><AppText variant="bodyStrong" tone={destructive ? 'danger' : 'primary'} numberOfLines={1} style={{ flexShrink: 1 }}>{title}</AppText>{badge ? <Badge label={badge} tone={badgeTone} /> : null}</View>{subtitle ? <AppText tone="secondary" numberOfLines={2}>{subtitle}</AppText> : null}{meta ? <AppText variant="caption" tone="muted" numberOfLines={1} tabular>{meta}</AppText> : null}</View>
     {trailing}{showChevron ? <ChevronRight size={18} color={theme.colors.textMuted} /> : null}
   </View>;
   if (!onPress) return content;

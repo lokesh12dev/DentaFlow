@@ -117,10 +117,10 @@ export interface CreateTaskInput {
   title: string; description?: string; patientId?: string; appointmentId?: string; assignedTo: string; priority: Task['priority']; dueAt?: string; category: Task['category'];
 }
 export interface CreateTreatmentPlanInput {
-  patientId: string; title: string; expiresAt?: string; items: Array<{ procedureTypeId?: string; procedureName: string; toothNumbers: number[]; quantity: number; unitFee: number; discount: number; tax: number; note?: string }>;
+  patientId: string; title: string; expiresAt?: string; items: { procedureTypeId?: string; procedureName: string; toothNumbers: number[]; quantity: number; unitFee: number; discount: number; tax: number; note?: string }[];
 }
 export interface CreateConsentInput { patientId: string; appointmentId?: string; templateName: string; language: string; guardianName?: string; witnessName?: string; expiresAt?: string; }
-export interface CreatePrescriptionInput { patientId: string; appointmentId?: string; allergyWarningAcknowledged: boolean; notes?: string; items: Array<{ medicine: string; strength?: string; dosage: string; frequency: string; duration: string; instructions?: string }>; }
+export interface CreatePrescriptionInput { patientId: string; appointmentId?: string; allergyWarningAcknowledged: boolean; notes?: string; items: { medicine: string; strength?: string; dosage: string; frequency: string; duration: string; instructions?: string }[]; }
 export interface CreateLabCaseInput { patientId: string; appointmentId?: string; labName: string; caseType: string; toothNumbers: number[]; shade?: string; impressionType?: string; dueAt?: string; cost?: number; note?: string; }
 export interface UpsertInventoryInput { id?: string; name: string; sku: string; category: string; supplier?: string; unit: string; currentQuantity: number; minimumQuantity: number; reorderQuantity: number; batchNumber?: string; expiresAt?: string; unitCost?: number; location?: string; }
 export interface CreateAutomationInput { name: string; trigger: string; action: string; channel?: CommunicationChannel; }
@@ -128,7 +128,7 @@ export interface CreateTemplateInput { name: string; channel: CommunicationChann
 export interface InviteStaffInput { email: string; name: string; role: StaffMember['role']; phone?: string; }
 export interface UpdateStaffInput { id: string; name: string; role: StaffMember['role']; phone?: string; active: boolean; availability: StaffMember['availability']; }
 export interface UpdateTemplateInput extends CreateTemplateInput { id: string; active: boolean; }
-export interface SignConsentInput { consentId: string; signedByName: string; guardianName?: string; witnessName?: string; attestation: string; signatureData: { strokes: Array<Array<{ x: number; y: number }>>; width: number; height: number; attestation: string }; }
+export interface SignConsentInput { consentId: string; signedByName: string; guardianName?: string; witnessName?: string; attestation: string; signatureData: { strokes: { x: number; y: number }[][]; width: number; height: number; attestation: string }; }
 export interface RefundPaymentInput { paymentId: string; amount: number; reason: string; idempotencyKey: string; }
 export interface RecordInventoryMovementInput { inventoryItemId: string; appointmentId?: string; patientId?: string; type: 'purchase'|'consumption'|'adjustment'|'waste'|'return'; quantity: number; unitCost?: number; reason?: string; }
 
@@ -176,6 +176,7 @@ export interface ClinicRepository {
   createTask(input: CreateTaskInput): Promise<Task>;
   setTaskStatus(id: string, status: Task['status']): Promise<void>;
   listInvoices(): Promise<Invoice[]>;
+  listPayments(): Promise<Payment[]>;
   recordPayment(input: RecordPaymentInput): Promise<Payment>;
   listTreatmentPlans(): Promise<TreatmentPlan[]>;
   createTreatmentPlan(input: CreateTreatmentPlanInput): Promise<TreatmentPlan>;
@@ -198,5 +199,5 @@ export interface ClinicRepository {
   refundPayment(input: RefundPaymentInput): Promise<Payment>;
   recordInventoryMovement(input: RecordInventoryMovementInput): Promise<InventoryItem>;
   listAuditLogs(): Promise<AuditLog[]>;
-  askPatientHistory(patientId: string, question: string): Promise<{ answer: string; sources: Array<{ id: string; label: string; occurredAt: string }> }>;
+  askPatientHistory(patientId: string, question: string): Promise<{ answer: string; sources: { id: string; label: string; occurredAt: string }[] }>;
 }

@@ -1,48 +1,48 @@
 {
   "audit": "performance",
   "metrics": {
-    "typescript_files": 157,
-    "total_ts_lines": 6904,
+    "typescript_files": 158,
+    "total_ts_lines": 7399,
     "largest_files": [
       [
         "src/domain/types.ts",
-        644
+        650
       ],
       [
         "src/repositories/supabaseRepository.ts",
-        392
+        408
       ],
       [
         "src/repositories/demoRepository.ts",
-        364
+        365
       ],
       [
         "src/data/demo.ts",
-        321
+        323
       ],
       [
         "src/features/patient/PatientProfileScreen.tsx",
-        233
+        234
       ],
       [
-        "src/repositories/clinicRepository.ts",
-        202
+        "src/domain/rules.ts",
+        224
       ],
       [
         "src/hooks/useClinicQueries.ts",
-        191
+        218
+      ],
+      [
+        "src/repositories/clinicRepository.ts",
+        203
       ],
       [
         "src/features/communications/CommunicationComposerScreen.tsx",
-        190
+        191
       ],
       [
-        "src/features/today/TodayScreen.tsx",
-        162
-      ],
-      [
-        "src/features/workflows/WorkflowForms.tsx",
-        146
+        "src/features/operations/ReportsScreen.tsx",
+        172
       ]
     ],
     "flashlist_uses": 4
@@ -58,7 +58,7 @@
     {
       "severity": "low",
       "check": "large-module",
-      "detail": "644 lines; monitor maintainability",
+      "detail": "650 lines; monitor maintainability",
       "file": "src/domain/types.ts"
     }
   ],

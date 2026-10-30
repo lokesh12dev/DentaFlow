@@ -37,6 +37,6 @@ export function SectionHeader({ title, subtitle, actionLabel, onAction, icon: Ic
       <AppText variant="title3">{title}</AppText>
       {subtitle ? <AppText variant="caption" tone="secondary">{subtitle}</AppText> : null}
     </View>
-    {actionLabel && onAction ? <Pressable accessibilityRole="button" accessibilityLabel={actionLabel} hitSlop={10} onPress={onAction}><AppText variant="label" tone="clinical">{actionLabel}</AppText></Pressable> : null}
+    {actionLabel && onAction ? <Pressable accessibilityRole="button" accessibilityLabel={actionLabel} hitSlop={10} style={({ pressed }) => ({ minHeight: 24, justifyContent: 'center', opacity: pressed ? 0.65 : 1, alignItems: 'flex-end' })} onPress={onAction}><AppText variant="label" tone="clinical">{actionLabel}</AppText></Pressable> : null}
   </View>;
 }

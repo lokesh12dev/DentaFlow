@@ -33,3 +33,14 @@ Warm paper surfaces, Enamel Teal, restrained semantic colors, fixed numeric alig
 ## Missing from the reference and required in production
 
 Accessible disabled/error field states, directional empty states, destructive confirmations, reduced motion, keyboard focus on web, route guards, permission feedback, offline/sync states and screen-reader labels.
+
+## Phase 3 implementation status (2026-10-30)
+
+Of the "required in production" list above, the following are now implemented in the UI layer (verified by code review + gates in `design-system/MASTER.md → Token governance`):
+
+- Keyboard focus on web: `role="dialog"` + focus trap + Escape for sheets and command palette (`src/ui/modalFocus.ts`).
+- Accessible disabled field state: `Field` exposes `accessibilityState.disabled` and error announcements remain through helper text (was present; re-verified).
+- Reduced motion: `Skeleton` honors the OS setting (was present; re-verified), and no other animation exceeds ambient shimmer.
+- Touch/44: full sweep completed this phase — chips, segmented controls, tooth chart, sheet actions, header actions.
+
+Still operational concerns (not UI-layer work): destructive confirmations (flows), offline/sync states (data layer), route guards + permission feedback (domain/access wiring in screens).

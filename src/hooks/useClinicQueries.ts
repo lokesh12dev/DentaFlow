@@ -1,4 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { AppState, AppStateStatus } from 'react-native';
+import { useEffect, useState } from 'react';
 import { clinicRepository, type AppointmentFilters, type CreateAppointmentInput, type CreateClinicalNoteInput, type CreateCommunicationInput, type CreatePatientInput, type PatientFilters, type RecordPaymentInput, type CreateTaskInput, type CreateTreatmentPlanInput, type CreateConsentInput, type CreatePrescriptionInput, type CreateLabCaseInput, type UpsertInventoryInput, type CreateAutomationInput, type CreateTemplateInput, type InviteStaffInput, type UpdateClinicInput, type CreateFamilyGroupInput, type UpdateStaffInput, type UpdateTemplateInput, type SignConsentInput, type RefundPaymentInput, type RecordInventoryMovementInput, type UpsertBranchProcedurePriceInput } from '@/repositories';
 import type { AppointmentStatus, Task } from '@/domain/types';
 
@@ -19,6 +21,7 @@ export const queryKeys = {
   bookingRequests: ['booking-requests'] as const,
   tasks: ['tasks'] as const,
   invoices: ['invoices'] as const,
+  payments: ['payments'] as const,
   treatmentPlans: ['treatment-plans'] as const,
   labs: ['labs'] as const,
   inventory: ['inventory'] as const,
@@ -26,6 +29,15 @@ export const queryKeys = {
   templates: ['templates'] as const,
   audit: ['audit'] as const
 };
+
+function useIsAppFocused() {
+  const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState);
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', setAppState);
+    return () => subscription.remove();
+  }, []);
+  return appState === 'active';
+}
 
 const invalidateCore = async (queryClient: ReturnType<typeof useQueryClient>) => {
   await Promise.all([
@@ -43,15 +55,30 @@ export const useFamilyGroups = () => useQuery({ queryKey: queryKeys.families, qu
 export const useStaff = () => useQuery({ queryKey: queryKeys.staff, queryFn: () => clinicRepository.listStaff() });
 export const useProcedures = () => useQuery({ queryKey: queryKeys.procedures, queryFn: () => clinicRepository.listProcedures(), staleTime: 1000 * 60 * 30 });
 export const useBranchProcedurePrices = (branchId: string) => useQuery({ queryKey: queryKeys.branchProcedurePrices(branchId), queryFn: () => clinicRepository.listBranchProcedurePrices(branchId), enabled: Boolean(branchId), staleTime: 1000 * 60 * 10 });
-export const useDashboard = (enabled = true) => useQuery({ queryKey: queryKeys.dashboard, queryFn: () => clinicRepository.getDashboard(), refetchInterval: 60_000, enabled });
+export const useDashboard = (enabled = true) => {
+  const isFocused = useIsAppFocused();
+  return useQuery({
+    queryKey: queryKeys.dashboard,
+    queryFn: () => clinicRepository.getDashboard(),
+    refetchInterval: () => (isFocused ? 60_000 : false),
+    enabled,
+  });
+};
 export const usePatients = (filters?: PatientFilters) => useQuery({ queryKey: queryKeys.patients(filters), queryFn: () => clinicRepository.listPatients(filters) });
 export const usePatientRecord = (id: string) => useQuery({ queryKey: queryKeys.patient(id), queryFn: () => clinicRepository.getPatientRecord(id), enabled: Boolean(id) });
 export const useAppointments = (filters?: AppointmentFilters) => useQuery({ queryKey: queryKeys.appointments(filters), queryFn: () => clinicRepository.listAppointments(filters) });
 export const useAppointment = (id: string) => useQuery({ queryKey: queryKeys.appointment(id), queryFn: () => clinicRepository.getAppointment(id), enabled: Boolean(id) });
-export const useCommunications = () => useQuery({ queryKey: queryKeys.communications, queryFn: () => clinicRepository.listCommunications(), refetchInterval: 45_000 });
-export const useBookingRequests = () => useQuery({ queryKey: queryKeys.bookingRequests, queryFn: () => clinicRepository.listBookingRequests(), refetchInterval: 60_000 });
+export const useCommunications = () => {
+  const isFocused = useIsAppFocused();
+  return useQuery({ queryKey: queryKeys.communications, queryFn: () => clinicRepository.listCommunications(), refetchInterval: () => (isFocused ? 45_000 : false) });
+};
+export const useBookingRequests = () => {
+  const isFocused = useIsAppFocused();
+  return useQuery({ queryKey: queryKeys.bookingRequests, queryFn: () => clinicRepository.listBookingRequests(), refetchInterval: () => (isFocused ? 60_000 : false) });
+};
 export const useTasks = () => useQuery({ queryKey: queryKeys.tasks, queryFn: () => clinicRepository.listTasks() });
 export const useInvoices = () => useQuery({ queryKey: queryKeys.invoices, queryFn: () => clinicRepository.listInvoices() });
+export const usePayments = () => useQuery({ queryKey: queryKeys.payments, queryFn: () => clinicRepository.listPayments(), staleTime: 1000 * 60 * 5 });
 export const useTreatmentPlans = () => useQuery({ queryKey: queryKeys.treatmentPlans, queryFn: () => clinicRepository.listTreatmentPlans() });
 export const useLabCases = () => useQuery({ queryKey: queryKeys.labs, queryFn: () => clinicRepository.listLabCases() });
 export const useInventory = () => useQuery({ queryKey: queryKeys.inventory, queryFn: () => clinicRepository.listInventory() });
@@ -96,7 +123,7 @@ export function useSetTaskStatus() {
 
 export function useRecordPayment() {
   const qc = useQueryClient();
-  return useMutation({ mutationFn: (input: RecordPaymentInput) => clinicRepository.recordPayment(input), onSuccess: async (_, input) => { await qc.invalidateQueries({ queryKey: queryKeys.invoices }); await qc.invalidateQueries({ queryKey: queryKeys.patient(input.patientId) }); await qc.invalidateQueries({ queryKey: queryKeys.dashboard }); } });
+  return useMutation({ mutationFn: (input: RecordPaymentInput) => clinicRepository.recordPayment(input), onSuccess: async (_, input) => { await qc.invalidateQueries({ queryKey: queryKeys.payments }); await qc.invalidateQueries({ queryKey: queryKeys.invoices }); await qc.invalidateQueries({ queryKey: queryKeys.patient(input.patientId) }); await qc.invalidateQueries({ queryKey: queryKeys.dashboard }); } });
 }
 
 export function useSetAutomationEnabled() {
@@ -169,7 +196,7 @@ export function useSignConsent() {
 }
 export function useRefundPayment() {
   const qc = useQueryClient();
-  return useMutation({ mutationFn: (input: RefundPaymentInput) => clinicRepository.refundPayment(input), onSuccess: async () => { await qc.invalidateQueries({ queryKey: queryKeys.invoices }); await qc.invalidateQueries({ queryKey: ['patient'] }); await qc.invalidateQueries({ queryKey: queryKeys.dashboard }); } });
+  return useMutation({ mutationFn: (input: RefundPaymentInput) => clinicRepository.refundPayment(input), onSuccess: async () => { await qc.invalidateQueries({ queryKey: queryKeys.payments }); await qc.invalidateQueries({ queryKey: queryKeys.invoices }); await qc.invalidateQueries({ queryKey: ['patient'] }); await qc.invalidateQueries({ queryKey: queryKeys.dashboard }); } });
 }
 export function useRecordInventoryMovement() {
   const qc = useQueryClient();

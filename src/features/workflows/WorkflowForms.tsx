@@ -3,7 +3,7 @@ import { Pressable, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import type { ClinicRole, CommunicationChannel, InventoryItem, MessageTemplate, TaskPriority } from '@/domain/types';
 import {
-  useAutomations, useChairs, useCreateAutomation, useCreateConsent, useCreateFamilyGroup, useCreateLabCase,
+  useCreateAutomation, useCreateConsent, useCreateFamilyGroup, useCreateLabCase,
   useCreatePrescription, useCreateTask, useCreateTemplate, useCreateTreatmentPlan, useFamilyGroups, useInviteStaff, useInventory,
   usePatients, useProcedures, useStaff, useTemplates, useUpdateTemplate, useUpsertInventory
 } from '@/hooks/useClinicQueries';
@@ -16,7 +16,7 @@ import {
   AppText, Badge, Button, Chip, EmptyState, ErrorState, Field, LoadingState, PageHeader, Screen, SearchField, SectionHeader, Surface, ToothChart
 } from '@/ui/components';
 import {
-  BookOpen, CalendarDays, CheckCircle2, ClipboardList, ContactRound, FileCheck2, FlaskConical, Package,
+  BookOpen, CheckCircle2, ClipboardList, ContactRound, FileCheck2, FlaskConical, Package,
   Pill, Plus, ShieldCheck, Signature, UserRoundPlus, UsersRound, WandSparkles
 } from '@/ui/icons';
 import { spacing } from '@/ui/tokens';

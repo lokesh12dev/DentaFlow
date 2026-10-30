@@ -3,6 +3,7 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import { supabase } from '@/core/supabase';
+import { printPalette } from '../../design-system/print';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -20,7 +21,9 @@ export async function registerForPushNotifications(clinicId: string): Promise<st
       name: 'Clinic alerts',
       importance: Notifications.AndroidImportance.HIGH,
       vibrationPattern: [0, 180, 80, 180],
-      lightColor: '#18324A'
+      // Same navy as the printed-document masthead. Android channel settings are
+      // immutable after first creation — do not change this on an already-shipped build.
+      lightColor: printPalette.brand
     });
   }
   const existing = await Notifications.getPermissionsAsync();

@@ -59,7 +59,8 @@ function ReceivablesStrip({ outstanding, overdue, dueCount }: { outstanding: num
 }
 
 function SummaryValue({ label, value, divided = false }: { label: string; value: string; divided?: boolean }) {
-  return <View style={{ flex: 1, alignItems: 'center', borderLeftWidth: divided ? 1 : 0, borderLeftColor: 'rgba(128, 138, 148, 0.22)', paddingHorizontal: spacing[1] }}>
+  const theme = useTheme();
+  return <View style={{ flex: 1, alignItems: 'center', borderLeftWidth: divided ? 1 : 0, borderLeftColor: theme.colors.border, paddingHorizontal: spacing[1] }}>
     <AppText variant="bodyStrong" numberOfLines={1} adjustsFontSizeToFit style={{ fontVariant: ['tabular-nums'] }}>{value}</AppText>
     <AppText variant="caption" tone="secondary" numberOfLines={1}>{label}</AppText>
   </View>;
@@ -83,7 +84,7 @@ function InvoiceRow({ invoice, patientName }: { invoice: Invoice; patientName: s
         </View>
         <View style={{ minWidth: 92, alignItems: 'flex-end' }}>
           <AppText variant="bodyStrong" style={{ fontVariant: ['tabular-nums'], color: invoice.status === 'overdue' ? theme.colors.danger : theme.colors.text }}>{money(invoice.balance)}</AppText>
-          <AppText variant="caption" tone="muted">of {money(invoice.total)}</AppText>
+          <AppText variant="caption" tone="muted" tabular>of {money(invoice.total)}</AppText>
         </View>
       </View>
     </Pressable>
@@ -102,4 +103,4 @@ function matchesFilter(invoice: Invoice, filter: BillingFilter) {
   return invoice.status === filter;
 }
 
-function Divider() { return <View style={{ height: 1, backgroundColor: 'rgba(128, 138, 148, 0.18)' }} />; }
+function Divider() { const theme = useTheme(); return <View style={{ height: 1, backgroundColor: theme.colors.border }} />; }

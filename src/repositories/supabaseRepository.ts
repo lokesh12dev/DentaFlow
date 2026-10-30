@@ -15,6 +15,7 @@ import type {
   DashboardData,
   InventoryItem,
   Invoice,
+  InvoiceItem,
   LabCase,
   Consent,
   FamilyGroup,
@@ -26,8 +27,8 @@ import type {
   ProcedureType,
   StaffMember,
   Task,
-  TimelineEvent,
-  TreatmentPlan
+  TreatmentPlan,
+  TreatmentPlanItem
 } from '@/domain/types';
 import type {
   AppointmentFilters,
@@ -59,6 +60,14 @@ import type {
 
 const db = () => requireSupabase();
 
+// Row types for Supabase responses with joined relations. Camel-case conversion
+// happens via `camel()`, so these interfaces reflect snake_case Supabase column names
+// where they haven't been transformed yet, plus camelCase fields after `camel()`.
+type DbRow = Record<string, unknown>;
+type InvoiceDbRow = DbRow & { invoice_items?: InvoiceItem[] };
+type TreatmentPlanDbRow = DbRow & { treatment_plan_items?: TreatmentPlanItem[] };
+type TaskCreateRow = DbRow & { clinic_members?: { name: string } | null };
+
 function requireData<T>(data: T | null, error: { message: string } | null, fallbackMessage: string): T {
   if (error) throw new Error(error.message);
   if (data == null) throw new Error(fallbackMessage);
@@ -89,18 +98,18 @@ function rows<T>(data: unknown[] | null): T[] {
 }
 
 function normalizeAppointment(row: Record<string, unknown>): Appointment {
-  const value = camel<Record<string, any>>(row);
+  const value = camel<DbRow>(row);
   return { ...value, doctorId: value.doctorMemberId, readiness: value.readiness ?? { intakeComplete: false, medicalHistoryVerified: false, consentReady: false, labCaseReady: true, paymentReady: true } } as Appointment;
 }
 
 function normalizeTask(row: Record<string, unknown>): Task {
-  const value = camel<Record<string, any>>(row);
-  const joined = value.clinicMembers;
+  const value = camel<DbRow>(row);
+  const joined = value.clinicMembers as { name: string } | null | undefined;
   return { ...value, assignedToName: value.assignedToName ?? joined?.name ?? 'Unassigned' } as Task;
 }
 
 function normalizeDashboard(row: Record<string, unknown>): DashboardData {
-  const value = camel<Record<string, any>>(row);
+  const value = camel<DbRow>(row);
   return {
     ...value,
     appointments: (row.appointments as Record<string, unknown>[] | undefined ?? []).map(normalizeAppointment),
@@ -111,7 +120,7 @@ function normalizeDashboard(row: Record<string, unknown>): DashboardData {
 }
 
 function normalizePatientRecord(row: Record<string, unknown>): PatientRecord {
-  const value = camel<Record<string, any>>(row);
+  const value = camel<DbRow>(row);
   return {
     ...value,
     appointments: (row.appointments as Record<string, unknown>[] | undefined ?? []).map(normalizeAppointment),
@@ -271,10 +280,12 @@ export const supabaseRepository: ClinicRepository = {
   async createTask(input: CreateTaskInput) {
     const payload = { clinic_id: currentClinicId(), title: input.title, description: input.description, patient_id: input.patientId, appointment_id: input.appointmentId, assigned_to: input.assignedTo, created_by: (await db().auth.getUser()).data.user?.id, priority: input.priority, status: 'open', due_at: input.dueAt, category: input.category };
     const { data, error } = await db().from('tasks').insert(payload).select('*, clinic_members!tasks_assigned_to_fkey(name)').single();
-    const row = requireData(data, error, 'Task could not be created.') as any; return camel<Task>({ ...row, assigned_to_name: row.clinic_members?.name });
+    const row = requireData(data, error, 'Task could not be created.') as TaskCreateRow; return camel<Task>({ ...row, assigned_to_name: row.clinic_members?.name });
   },
   async listTasks() {
-    const { data, error } = await db().from('tasks').select('*, clinic_members!tasks_assigned_to_fkey(name)').eq('clinic_id', currentClinicId()).not('status', 'in', '(done,cancelled)').order('due_at');
+    // Returns all statuses (bounded): TasksScreen renders a 'done' queue, and
+    // analytics need completed follow-ups. Consumers filter client-side.
+    const { data, error } = await db().from('tasks').select('*, clinic_members!tasks_assigned_to_fkey(name)').eq('clinic_id', currentClinicId()).order('due_at').limit(300);
     if (error) throw new Error(error.message);
     return (data ?? []).map((item) => normalizeTask(item as Record<string, unknown>));
   },
@@ -285,11 +296,16 @@ export const supabaseRepository: ClinicRepository = {
   async listInvoices() {
     const { data, error } = await db().from('invoices').select('*, invoice_items(*)').eq('clinic_id', currentClinicId()).order('issued_at', { ascending: false }).limit(300);
     if (error) throw new Error(error.message);
-    return rows<any>(data).map((item) => ({ ...item, items: item.invoiceItems ?? [] })) as Invoice[];
+    return rows<InvoiceDbRow>(data).map((item) => ({ ...item, items: item.invoice_items ?? [] })) as Invoice[];
   },
   async recordPayment(input: RecordPaymentInput) {
     const { data, error } = await db().rpc('record_payment', { p_clinic_id: currentClinicId(), p_payload: input });
     return camel<Payment>(requireData(data, error, 'Payment could not be recorded.') as Record<string, unknown>);
+  },
+  async listPayments() {
+    const { data, error } = await db().from('payments').select('*').eq('clinic_id', currentClinicId()).order('received_at', { ascending: false }).limit(500);
+    if (error) throw new Error(error.message);
+    return rows<Payment>(data);
   },
   async createTreatmentPlan(input: CreateTreatmentPlanInput) {
     const { data, error } = await db().rpc('create_treatment_plan', { p_clinic_id: currentClinicId(), p_payload: input });
@@ -297,7 +313,7 @@ export const supabaseRepository: ClinicRepository = {
   },
   async createConsent(input: CreateConsentInput) {
     const { data, error } = await db().from('consents').insert({ clinic_id: currentClinicId(), patient_id: input.patientId, appointment_id: input.appointmentId, template_name: input.templateName, language: input.language, status: 'sent', guardian_name: input.guardianName, witness_name: input.witnessName, sent_at: new Date().toISOString(), expires_at: input.expiresAt }).select().single();
-    const value = camel<Record<string, any>>(requireData(data, error, 'Consent could not be created.')); return { ...value, templateId: value.templateId ?? value.id } as Consent;
+    const value = camel<DbRow>(requireData(data, error, 'Consent could not be created.')); return { ...value, templateId: value.templateId ?? value.id } as Consent;
   },
   async createPrescription(input: CreatePrescriptionInput) {
     const { data, error } = await db().rpc('create_prescription', { p_clinic_id: currentClinicId(), p_payload: input });
@@ -306,7 +322,7 @@ export const supabaseRepository: ClinicRepository = {
   async listTreatmentPlans() {
     const { data, error } = await db().from('treatment_plans').select('*, treatment_plan_items(*)').eq('clinic_id', currentClinicId()).order('updated_at', { ascending: false });
     if (error) throw new Error(error.message);
-    return rows<any>(data).map((item) => ({ ...item, items: item.treatmentPlanItems ?? [] })) as TreatmentPlan[];
+    return rows<TreatmentPlanDbRow>(data).map((item) => ({ ...item, items: item.treatment_plan_items ?? [] })) as TreatmentPlan[];
   },
   async createLabCase(input: CreateLabCaseInput) {
     const patient = await this.getPatientRecord(input.patientId);
@@ -387,6 +403,6 @@ export const supabaseRepository: ClinicRepository = {
     const { data, error } = await db().functions.invoke('openrouter-clinical-assist', {
       body: { action: 'history-question', clinicId: currentClinicId(), patientId, question }
     });
-    return requireData(data, error, 'History assistant could not answer the question.') as { answer: string; sources: Array<{ id: string; label: string; occurredAt: string }> };
+    return requireData(data, error, 'History assistant could not answer the question.') as { answer: string; sources: { id: string; label: string; occurredAt: string }[] };
   }
 };

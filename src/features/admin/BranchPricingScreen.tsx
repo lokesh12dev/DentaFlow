@@ -78,10 +78,10 @@ export function BranchPricingScreen() {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing[3] }}>
               <View style={{ flex: 1, gap: 3 }}>
                 <AppText variant="bodyStrong">{procedure.name}</AppText>
-                <AppText variant="caption" tone="secondary">{procedure.category} · Clinic default ₹{procedure.defaultFee.toLocaleString('en-IN')} · {procedure.defaultDurationMinutes} min</AppText>
+                <AppText variant="caption" tone="secondary" tabular>{procedure.category} · Clinic default ₹{procedure.defaultFee.toLocaleString('en-IN')} · {procedure.defaultDurationMinutes} min</AppText>
               </View>
               <View style={{ alignItems: 'flex-end', gap: spacing[1] }}>
-                <AppText variant="bodyStrong">₹{(override?.active ? override.fee : procedure.defaultFee).toLocaleString('en-IN')}</AppText>
+                <AppText variant="bodyStrong" tabular>₹{(override?.active ? override.fee : procedure.defaultFee).toLocaleString('en-IN')}</AppText>
                 <Badge label={override?.active ? `${override.durationMinutes ?? procedure.defaultDurationMinutes} min · Branch override` : `${procedure.defaultDurationMinutes} min · Default`} tone={override?.active ? 'info' : 'neutral'} />
               </View>
             </View>

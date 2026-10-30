@@ -77,4 +77,4 @@ function recallDueCopy(value?: string) {
   return `Due ${dateLabel(value)}`;
 }
 
-function Divider() { return <View style={{ height: 1, backgroundColor: 'rgba(128, 138, 148, 0.18)' }} />; }
+function Divider() { const theme = useTheme(); return <View style={{ height: 1, backgroundColor: theme.colors.border }} />; }

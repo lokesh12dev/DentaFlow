@@ -1,6 +1,6 @@
 # DentaFlow automated quality report
 
-Generated: 2026-08-03T19:07:52.930184+00:00
+Generated: 2026-10-30T05:08:04.475700+00:00
 
 Overall gate: **PASS**
 
@@ -24,7 +24,7 @@ No findings.
 ## performance
 Gate: **PASS**
 
-- **LOW — large-module**: 644 lines; monitor maintainability (`src/domain/types.ts`)
+- **LOW — large-module**: 650 lines; monitor maintainability (`src/domain/types.ts`)
 
 ## usability-and-flow
 Gate: **PASS**

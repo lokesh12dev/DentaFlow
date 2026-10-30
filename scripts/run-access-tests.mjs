@@ -28,6 +28,11 @@ const checks = [
   ['billing can refund payments', access.can('billing', 'refund.create')],
   ['billing cannot read clinical notes', !access.can('billing', 'clinical.read')],
   ['module route resolves its permission', access.requiredPermissionForPath('/(modules)/integrations') === 'integration.manage'],
+  ['reports require report.read', access.requiredPermissionForPath('/(modules)/reports') === 'report.read'],
+  ['billing cannot read inventory', !access.can('billing', 'inventory.read')],
+  ['receptionist cannot read reports', !access.can('receptionist', 'report.read')],
+  ['assistant cannot sign clinical notes', !access.can('assistant', 'clinical.sign')],
+  ['assistant cannot create prescriptions', !access.can('assistant', 'prescription.create')],
 ];
 
 const failures = checks.filter(([, passed]) => !passed).map(([name]) => name);

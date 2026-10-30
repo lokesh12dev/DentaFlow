@@ -289,7 +289,7 @@ export interface ClinicalMedia {
 export interface ToothRecord {
   toothNumber: number;
   condition: 'healthy' | 'caries' | 'filled' | 'crown' | 'missing' | 'implant' | 'root-canal' | 'bridge' | 'mobility' | 'watch';
-  surfaces: Array<'M' | 'O' | 'D' | 'B' | 'L'>;
+  surfaces: ('M' | 'O' | 'D' | 'B' | 'L')[];
   note?: string;
   updatedAt: ISODateTime;
 }
@@ -335,6 +335,9 @@ export interface InvoiceItem {
   unitPrice: number;
   discount: number;
   tax: number;
+  taxRateCgst: number;
+  taxRateSgst: number;
+  hsnCode?: string;
   total: number;
 }
 
@@ -350,6 +353,9 @@ export interface Invoice {
   subtotal: number;
   discount: number;
   tax: number;
+  taxRateCgst: number;
+  taxRateSgst: number;
+  hsnCode?: string;
   total: number;
   paid: number;
   balance: number;
@@ -428,7 +434,7 @@ export interface Consent {
   guardianName?: string;
   witnessName?: string;
   signaturePath?: string;
-  signatureData?: { strokes: Array<Array<{ x: number; y: number }>>; width: number; height: number; attestation: string };
+  signatureData?: { strokes: { x: number; y: number }[][]; width: number; height: number; attestation: string };
   sentAt?: ISODateTime;
   signedAt?: ISODateTime;
   withdrawnAt?: ISODateTime;

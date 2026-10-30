@@ -7,6 +7,7 @@ import {
   ShieldCheck, SlidersHorizontal, Stethoscope, UsersRound, WandSparkles,
 } from '@/ui/icons';
 import type { LucideIcon } from '@/ui/icons';
+import { useTheme } from '@/ui/ThemeProvider';
 import { AppIcon, AppText, ListRow, PageHeader, Screen, SectionHeader, Surface } from '@/ui/components';
 import { spacing } from '@/ui/tokens';
 import { useUIStore } from '@/store/uiStore';
@@ -74,5 +75,6 @@ export function MoreScreen() {
 }
 
 function Divider() {
-  return <View style={{ height: 1, marginLeft: 52, backgroundColor: 'rgba(128, 138, 148, 0.18)' }} />;
+  const theme = useTheme();
+  return <View style={{ height: 1, marginLeft: 52, backgroundColor: theme.colors.border }} />;
 }

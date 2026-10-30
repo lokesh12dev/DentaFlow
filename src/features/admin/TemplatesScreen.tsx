@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import type { CommunicationChannel } from '@/domain/types';
 import { useTemplates } from '@/hooks/useClinicQueries';
 import { AppText, Badge, Chip, EmptyState, ErrorState, LoadingState, PageHeader, Screen, SectionHeader, Surface } from '@/ui/components';
-import { BookOpen, CheckCircle2, FileText, MessageCircle, Plus } from '@/ui/icons';
+import { BookOpen, FileText, MessageCircle } from '@/ui/icons';
 import { spacing } from '@/ui/tokens';
 import { useTheme } from '@/ui/ThemeProvider';
 
